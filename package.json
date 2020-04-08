@@ -1,0 +1,35 @@
+{
+  "name": "Mathsheet",
+  "version": "1.0.0",
+  "description": "generate Mathsheets with python engines.",
+  "main": "index.js",
+  "start": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "deploy": "gcloud app deploy",
+    "start": "node ./index.js",
+    "lint": "samples lint",
+    "pretest": "npm run lint",
+    "test": "node app.js & ava -T 30s test/*.js; killall node",
+    "e2e-test": "samples test deploy"
+  },
+  "author": "GaryDoooo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "html": "^1.0.0",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "python-shell": "^1.0.7",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "cloud-repo-tools": {
+    "requiresKeyFile": true,
+    "requiresProjectId": true
+  }
+}
