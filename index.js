@@ -7,6 +7,17 @@ const socket = require('socket.io'), // socket for serving the chat service
     server = require('http').Server(app),
     server_io = socket(server); // the io for chat server
 
+var tex2svg = require( 'tex-equation-to-svg' );
+var eqn = 'y = mx + b';
+
+tex2svg( eqn, 
+
+function clbk( error, svg ) {
+	if ( error ) {
+		throw error;
+	}
+	console.log( svg );}
+);
 /////// set the http listen and httpd working directory
 app.set('view engine', 'html')
     .get('/', function(req, res) {
@@ -28,16 +39,14 @@ server_io.on('connection', function(socket) {
     console.log(`made socket connection ${socket.id}`, socket.id);
 
     socket.on('gen', function(
-        problem_num, first_num_min, first_num_max,
-        second_num_min, second_num_max, result_max,
-        operator, prob_per_page,
+        problem_num, question_type_list_string,
         cb_function) {
         try {
             var ps = require('python-shell');
             var options = {
                 args: [
-                    problem_num, first_num_min, first_num_max, second_num_min,
-                    second_num_max, result_max, operator, "new" // new means to generate new page key
+                    problem_num, 
+			question_type_list_string, "new" // new means to generate new page key
                 ]
             }
             ps.PythonShell.run('./js_interface.py', options, function(err, results) {
@@ -66,8 +75,8 @@ server_io.on('connection', function(socket) {
             var ps = require('python-shell');
             var options = {
                 args: [
-                    problem_num, 1, 1, 1,
-                    1, 1, "a", page_key // if page key not 'new' means to get answers back
+                    problem_num,
+                    "a", page_key // if page key not 'new' means to get answers back
                 ]
             }
             ps.PythonShell.run('./js_interface.py', options, function(err, results) {

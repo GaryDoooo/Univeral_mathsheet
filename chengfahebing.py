@@ -18,7 +18,7 @@ def equation_chengfahebing_plus_10():
             "VAR3",
         str(var3))
     answer = str(var1 * var2 + var3 * var1)
-    return question, answer
+    return question, question + answer
 
 
 def equation_chengfahebing_plus_10s():
@@ -39,7 +39,7 @@ def equation_chengfahebing_plus_10s():
             "VAR3",
         str(var3))
     answer = str(var1 * var2 + var3 * var1)
-    return question, answer
+    return question, question + answer
 
 
 def equation_chengfahebing_minus_10():
@@ -61,7 +61,7 @@ def equation_chengfahebing_minus_10():
             "VAR3",
         str(var3))
     answer = str(var1 * var2 - var3 * var1)
-    return question, answer
+    return question, question + answer
 
 
 def equation_chengfahebing_minus_10s():
@@ -85,7 +85,7 @@ def equation_chengfahebing_minus_10s():
             "VAR3",
         str(var3))
     answer = str(var1 * var2 - var3 * var1)
-    return question, answer
+    return question, question + answer
 
 
 function_list = [

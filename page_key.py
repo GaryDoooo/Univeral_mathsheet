@@ -173,21 +173,24 @@ def page_key_compress(parameter_list, max_list):
     operator_seed_string = parameter_to_string(
         parameter_list[-2:], max_list[-2:])
     #print(parameter_list[-2:], max_list[-2:])
-    [first_num_min, first_num_max, second_num_min,
-     second_num_max, result_max] = parameter_list[:-2]
-    string1, bit_string = inter_compress_string(
-        [first_num_min, second_num_min, first_num_max, second_num_max, result_max])
-    return string1 + '-' + bit_string + '-' + operator_seed_string
+    #  [first_num_min, first_num_max, second_num_min,
+    #  second_num_max, result_max] = parameter_list[:-2]
+    #  string1, bit_string = inter_compress_string(
+    #  [first_num_min, second_num_min, first_num_max, second_num_max, result_max])
+    #  return string1 + '-' + bit_string + '-' + operator_seed_string
+    return operator_seed_string
 
 
 def page_key_decompress(input_key, max_list):
-    [string1, bit_string, operator_seed_string] = input_key.split('-')
+    #  [string1, bit_string, operator_seed_string] = input_key.split('-')
+    operator_seed_string = input_key
     [operator_in_number, randseed] = string_backto_parameter(
         operator_seed_string, max_list[-2:])
-    [first_num_min, second_num_min, first_num_max, second_num_max,
-        result_max] = inter_decompress_string(string1, bit_string)
-    return [first_num_min, first_num_max, second_num_min,
-            second_num_max, result_max, operator_in_number, randseed]
+    #  [first_num_min, second_num_min, first_num_max, second_num_max,
+    #  result_max] = inter_decompress_string(string1, bit_string)
+    #  return [first_num_min, first_num_max, second_num_min,
+    #  second_num_max, result_max,
+    return [operator_in_number, randseed]
 
 
 def main():
@@ -215,7 +218,7 @@ def main():
     s1, s2 = del_zero(1234000, "1")
     print(add_zero_back(s1, s2))
     s1, s2 = inter_compress_string([
-        2 + 1000,  2 + 1000, 100 + 999,
+        2 + 1000, 2 + 1000, 100 + 999,
         100 + 999, 10000])
     print(s1, s2)
     print(inter_decompress_string(s1, s2))
@@ -235,6 +238,7 @@ def main():
     print(s)
     print(page_key_decompress(s, max_list))
     print(max_list)
+
 
 if __name__ == "__main__":
     # execute only if run as a script
