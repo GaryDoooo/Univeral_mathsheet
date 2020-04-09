@@ -7,19 +7,6 @@ const socket = require("socket.io"), // socket for serving the chat service
   server = require("http").Server(app),
   server_io = socket(server); // the io for chat server
 
-var tex2svg = require("tex-equation-to-svg");
-var eqn = "y = mx + b";
-
-tex2svg(
-  eqn,
-
-  function clbk(error, svg) {
-    if (error) {
-      throw error;
-    }
-    console.log(svg);
-  }
-);
 /////// set the http listen and httpd working directory
 app
   .set("view engine", "html")

@@ -22,7 +22,7 @@ problem_output, answer_output = html_output(
 # 	"answer_list":answer_output
 # }
 
-print(problem_output)
-print(answer_output)
+print(repr(problem_output))
+print(repr(answer_output)) # repr(STR) prints the raw string, ingnore \t \n formatting things
 # print(page_key)
 sys.stdout.flush()
