@@ -7,7 +7,7 @@ from page_key import page_key_decompress as decode_key
 
 def html_output(problem_list, answer_list, page_key):
     problem_output = ''
-    table_head = '<table BORDERCOLOR=white><tr><th colspan="5">ANSWER KEY:  ' + \
+    table_head = '<table BORDERCOLOR=white width="100%"><tr><th colspan="5">ANSWER KEY:  ' + \
         page_key + '</th></tr><tr>'
     table_end = "  </tr></table>"
     answer_output = problem_output
@@ -99,3 +99,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # TabNine::semSemantic completion enabled.

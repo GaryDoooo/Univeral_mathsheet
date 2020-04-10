@@ -1,64 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Math Gen Ouput</title>
     <!-- <script src="/libs/socket.io.js"></script> -->
     <!-- <link href="chatroom.css" rel="stylesheet" /> -->
     <style type="text/css">
-    @page {
+      @page {
         size: auto;
         /* auto is the initial value */
 
         /* this affects the margin in the printer settings */
         margin: 15mm 5mm 5mm 5mm;
-    }
+      }
 
-    body {
+      body {
         /* this affects the margin on the content before sending to printer */
         margin: 0px;
-    }
+      }
 
-    @media print {
-
+      @media print {
         .no-print,
         .no-print * {
-            display: none !important;
+          display: none !important;
         }
-    }
+      }
 
-    table {
+      table {
         table-layout: auto;
         border-collapse: collapse;
         page-break-inside: avoid;
         width: 100%;
-    }
+      }
 
-    table td {
+      table td {
         border: 0px solid #ccc;
-    }
+      }
 
-    table .absorbing-column {
+      table .absorbing-column {
         width: 100%;
-    }
+      }
 
-    /*table { page-break-inside:auto }*/
-    tr {
+      /*table { page-break-inside:auto }*/
+      tr {
         page-break-inside: avoid;
         /*page-break-after: auto*/
-    }
+      }
     </style>
-</head>
+    <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <!-- <script src="/libs/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="/libs/tex-mml-chtml.js"></script> -->
+    <!-- The two js are from https://www.mathjax.org/#gettingstarted
+    They will translate inline Tex into math object. 
+    example is: 
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>MathJax example</title>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async
+                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+        </head>
+        <body>
+        <p>
+        When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+        \[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]
+        </p>
+        <p>\[1\times2\]</p>
+        </body>
+        </html> -->
+  </head>
 
-<body>
-    <div id="output">
-    </div>
-    <button id="swap" class='no-print'>Hide / Unhide Answers</button>
+  <body>
+    <div id="output"></div>
+    <button id="swap" class="no-print">Hide / Unhide Answers</button>
     <!-- <script src="/client.js"></script> -->
     <script src="/libs/p5.js"></script>
     <!-- <script src="gdu_keygen.js"></script> -->
     <script src="/client.p5.js"></script>
-</body>
-
+  </body>
 </html>

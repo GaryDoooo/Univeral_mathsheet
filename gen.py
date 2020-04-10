@@ -47,7 +47,13 @@ def question_gen(
         problem_list.append(("[%d] " % i) +
                             ("<latex>%s</latex>" % new_problem))
         answer_list.append(("[%d] " % i) + ("<latex>%s</latex>" % new_answer))
+        # problem_list.append(("[%d] " % i) +
+        #                     ("\[%s\]" % new_problem))
+        # answer_list.append(("[%d] " % i) + ("\[%s\]" % new_answer))
     return problem_list, answer_list
+
+# The brackets [ and ] are from MathJax, but it does not
+
 #  <table style="width:100%">
   #  <tr>
     #  <th>Firstname</th>
