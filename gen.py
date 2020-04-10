@@ -52,7 +52,8 @@ def question_gen(
         # answer_list.append(("[%d] " % i) + ("\[%s\]" % new_answer))
     return problem_list, answer_list
 
-# The brackets [ and ] are from MathJax, but it does not
+# The brackets [ and ] are from MathJax, but it does not work with live
+# update html contents.
 
 #  <table style="width:100%">
   #  <tr>

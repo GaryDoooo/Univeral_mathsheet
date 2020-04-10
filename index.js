@@ -29,17 +29,18 @@ server_io.on("connection", function(socket) {
     console.log(`made socket connection ${socket.id}`, socket.id);
 
     socket.on("gen", function(
-        problem_num,
-        question_type_list_string,
+        problem_num,num_of_col,
+        question_type_list_string, 
         cb_function
     ) {
         try {
             var ps = require("python-shell");
             var options = {
                 args: [
-                    problem_num,
+                    problem_num, num_of_col,
                     question_type_list_string,
                     "new", // new means to generate new page key
+
                 ],
             };
             ps.PythonShell.run("./js_interface.py", options, function(err, results) {
@@ -51,7 +52,7 @@ server_io.on("connection", function(socket) {
                 } else {
                     console.log("finished");
                     console.log(results);
-                    results=replace_latex_for_multiple__strings(results);
+                    results = replace_latex_for_multiple__strings(results);
                     cb_function({
                         done: true,
                         problem_list: results[0],
@@ -69,13 +70,13 @@ server_io.on("connection", function(socket) {
         }
     });
 
-    socket.on("answer", function(problem_num, page_key, cb_function) {
+    socket.on("answer", function(problem_num, col_num,page_key, cb_function) {
         try {
             var ps = require("python-shell");
             var options = {
                 args: [
-                    problem_num,
-                    "a",
+                    problem_num,col_num,
+                    "chengfahebing",
                     page_key, // if page key not 'new' means to get answers back
                 ],
             };
@@ -88,6 +89,7 @@ server_io.on("connection", function(socket) {
                 } else {
                     console.log("finished");
                     console.log(results);
+                    results = replace_latex_for_multiple__strings(results); 
                     cb_function({
                         done: true,
                         problem_list: results[0],
@@ -107,30 +109,30 @@ server_io.on("connection", function(socket) {
 
 ////////////////////////////////////////////////////////////////
 // change latex in multiple strings
-function replace_latex_for_multiple__strings(input_strings){
-    var number_of_strings= input_strings.length;
-    var number_of_done=Array(number_of_strings).fill(0); 
-    var results=Array(number_of_strings).fill("");
-    for (var i=0;i<number_of_strings;i++){
+function replace_latex_for_multiple__strings(input_strings) {
+    var number_of_strings = input_strings.length;
+    var number_of_done = Array(number_of_strings).fill(0);
+    var results = Array(number_of_strings).fill("");
+    for (var i = 0; i < number_of_strings; i++) {
         replace_latex(input_strings[i],
-            function(result){
-                results[i]=result;
-                number_of_done[i]=1;
+            function(result) {
+                results[i] = result;
+                number_of_done[i] = 1;
             });
     }
-    while(number_of_done.reduce((a, b) => a + b, 0)<number_of_strings){
-        var i=1;
+    while (number_of_done.reduce((a, b) => a + b, 0) < number_of_strings) {
+        var i = 1;
         i++; // use the while loop to wait all the results are ready 
     }
     return results;
-} 
+}
 ////////////////////////////////////////////////////////////////
 // Using MathJax to convert TeX into svg 
 
 var mjAPI = require("mathjax-node");
 mjAPI.config({
     MathJax: {
-    // traditional MathJax configuration
+        // traditional MathJax configuration
     },
 });
 mjAPI.start();
@@ -157,19 +159,18 @@ function replace_latex(input_string, cb_function) {
         console.log("prefix=" + prefix);
         console.log("suffix=" + suffix);
         console.log("latex=" + latex);
-        mjAPI.typeset(
-            {
-                math: latex,
-                format: "TeX", // or "inline-TeX", "MathML"
-                svg: true, // or svg:true, or html:true
-            },
-            function (data) {
-                if (!data.errors) {
-                    replace_latex(suffix, function (output) {
-                        cb_function(prefix + data.svg + output);
-                    });
-                }
+        mjAPI.typeset({
+            math: latex,
+            format: "TeX", // or "inline-TeX", "MathML"
+            svg: true, // or svg:true, or html:true
+        },
+        function(data) {
+            if (!data.errors) {
+                replace_latex(suffix, function(output) {
+                    cb_function(prefix + data.svg + output);
+                });
             }
+        }
         );
     }
 }

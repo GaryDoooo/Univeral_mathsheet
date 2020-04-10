@@ -5,7 +5,7 @@ from page_key import page_key_compress as encode_key
 from page_key import page_key_decompress as decode_key
 
 
-def html_output(problem_list, answer_list, page_key):
+def html_output(problem_list="", answer_list="", page_key="", num_of_col=5):
     problem_output = ''
     table_head = '<table BORDERCOLOR=white width="100%"><tr><th colspan="5">ANSWER KEY:  ' + \
         page_key + '</th></tr><tr>'
@@ -14,11 +14,14 @@ def html_output(problem_list, answer_list, page_key):
     counter = 0
     answer_output += table_head
     problem_output += table_head
+    num_of_col = int(num_of_col)
+    if not (0 < num_of_col < 11):
+        num_of_col = 5
     for problem, answer in zip(problem_list, answer_list):
         problem_output += '<td>' + problem + '</td>'
         answer_output += '<td>' + answer + '</td>'
         counter += 1
-        if (counter % 5) == 0:
+        if (counter % num_of_col) == 0:
             problem_output += "</tr><tr><td><br></td></tr><tr>"
             answer_output += "</tr><tr><td><br></td></tr><tr>"
     answer_output += table_end
