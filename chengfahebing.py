@@ -93,3 +93,8 @@ function_list = [
     "chengfahebing_plus_10s",
     "chengfahebing_minus_10",
     "chengfahebing_minus_10s"]
+
+sample1, _ = equation_chengfahebing_plus_10()
+sample2, _ = equation_chengfahebing_minus_10s()
+abstract = "Use distributive law of multiplication to calculate quickly, e.g. <latex>" + \
+    sample1 + "</latex><latex>" + sample2 + "</latex>"
