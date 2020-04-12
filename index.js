@@ -24,13 +24,13 @@ if (module === require.main) {
 }
 
 // try_js_py()
-
 server_io.on("connection", function(socket) {
+
     console.log(`made socket connection ${socket.id}`, socket.id);
 
     socket.on("gen", function(
-        problem_num,num_of_col,
-        question_type_list_string, 
+        problem_num, num_of_col,
+        question_type_list_string,
         cb_function
     ) {
         try {
@@ -70,12 +70,12 @@ server_io.on("connection", function(socket) {
         }
     });
 
-    socket.on("answer", function(problem_num, col_num,page_key, cb_function) {
+    socket.on("answer", function(problem_num, col_num, page_key, cb_function) {
         try {
             var ps = require("python-shell");
             var options = {
                 args: [
-                    problem_num,col_num,
+                    problem_num, col_num,
                     "chengfahebing",
                     page_key, // if page key not 'new' means to get answers back
                 ],
@@ -89,7 +89,7 @@ server_io.on("connection", function(socket) {
                 } else {
                     console.log("finished");
                     console.log(results);
-                    results = replace_latex_for_multiple__strings(results); 
+                    results = replace_latex_for_multiple__strings(results);
                     cb_function({
                         done: true,
                         problem_list: results[0],

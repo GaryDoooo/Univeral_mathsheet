@@ -23,7 +23,7 @@ generate.addEventListener("click", function() {
         socket.emit(
             "gen",
             Math.min(prob_per_page, problem_num - i), num_of_col,
-            "chengfahebing",
+            "chengfahebing,",
             function(result) {
                 if (page_count > 0) {
                     problem_output += page_break_before;
