@@ -18,7 +18,7 @@ generate.addEventListener("click", function() {
         num_of_col = get_number(num_of_col_html.value, 5),
         prob_per_page = get_number(prob_per_page_html.value, 100),
         page_count = 0,
-        page_break_before = '<P style="page-break-before: always">',
+        page_break_before = "<P style=\"page-break-before: always\">",
         problem_output = "",
         answer_output = "",
         total_pages = Math.ceil(problem_num / prob_per_page);
@@ -37,7 +37,7 @@ generate.addEventListener("click", function() {
                 "gen",
                 Math.min(prob_per_page, problem_num - i),
                 num_of_col,
-                "chengfahebing,",
+                "chengfahebing,chufahebing",
                 function(result) {
                     if (page_count > 0) {
                         problem_output += page_break_before;

@@ -9,3 +9,6 @@ class equation_generator:
     def __init__(self,)
 
 class
+TabNine:
+    :
+        config

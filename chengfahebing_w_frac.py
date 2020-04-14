@@ -5,10 +5,10 @@ def latex_times(a, b):
     a = str(a)
     b = str(b)
     equation = []
-    equation.append("%s\times %s" % (a, b))
-    equation.append("%s\times %s" % (b, a))
-    equation.append("%s\div \frac{1}{%s}" % (a, b))
-    equation.append("%s\div \frac{1}{%s}" % (b, a))
+    equation.append(a + "/times " + b)
+    equation.append(b + "/times " + a)
+    equation.append(a + "/div /frac{1}{" + b + "}")
+    equation.append(a + "/div /frac{1}{" + b + "}")
     return equation[randint(0, 3)]
 
 
@@ -61,7 +61,7 @@ function_list = [
     "chengfahebing_w_frac_minus_10",
     "chengfahebing_w_frac_minus_10s"]
 
-sample1, _ = equation_chengfahebing_with_frac_plus_10()
-sample2, _ = equation_chengfahebing_with_frac_minus_10s()
+sample1, _ = equation_chengfahebing_w_frac_plus_10()
+sample2, _ = equation_chengfahebing_w_frac_minus_10s()
 abstract = "Use distributive law of multiplication to calculate quickly. But in this case, the multiplication includes division and fractions. e.g. <latex>" + \
     sample1 + "</latex><latex>" + sample2 + "</latex>"

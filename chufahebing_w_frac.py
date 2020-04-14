@@ -5,9 +5,9 @@ def latex_div(a, b):
     a = str(a)
     b = str(b)
     equation = []
-    equation.append("%s\div %s" % (a, b))
-    equation.append("%s\times \frac{1}{%s}" % (a, b))
-    equation.append("\frac{%s}{%s}" % (a, b))
+    equation.append(a + "/div " + b)
+    equation.append(a + "/times /frac{1}{" + b + "}")
+    equation.append("/frac{" + a + "}{" + b + "}")
     return equation[randint(0, 2)]
 
 
@@ -37,7 +37,7 @@ def equation_chufahebing_plus_w_frac():
     return question, question + str(answer)
 
 function_list = [
-    "chufahebing_plus_w_frac", "equation_chufahebing_minus_w_frac"]
+    "chufahebing_plus_w_frac", "chufahebing_minus_w_frac"]
 
 sample1, _ = equation_chufahebing_plus_w_frac()
 sample2, _ = equation_chufahebing_minus_w_frac()
