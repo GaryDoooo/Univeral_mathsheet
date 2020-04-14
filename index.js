@@ -8,8 +8,7 @@ const socket = require("socket.io"), // socket for serving the chat service
     server_io = socket(server); // the io for chat server
 
 /////// set the http listen and httpd working directory
-app
-    .set("view engine", "html")
+app.set("view engine", "html")
     .get("/", function(req, res) {
         res.sendFile(path.join(__dirname + "/public/"));
     })
@@ -25,25 +24,34 @@ if (module === require.main) {
 
 // try_js_py()
 server_io.on("connection", function(socket) {
-
     console.log(`made socket connection ${socket.id}`, socket.id);
 
     socket.on("gen", function(
-        problem_num, num_of_col,
+        problem_num,
+        num_of_col,
         question_type_list_string,
         cb_function
     ) {
+        console.log(
+            "received client gen request",
+            problem_num,
+            num_of_col,
+            question_type_list_string
+        );
         try {
             var ps = require("python-shell");
             var options = {
                 args: [
-                    problem_num, num_of_col,
+                    problem_num,
+                    num_of_col,
                     question_type_list_string,
-                    "new", // new means to generate new page key
-
-                ],
+                    "new" // new means to generate new page key
+                ]
             };
-            ps.PythonShell.run("./js_interface.py", options, function(err, results) {
+            ps.PythonShell.run("./js_interface.py", options, function(
+                err,
+                results
+            ) {
                 if (err) {
                     console.log(err);
                     cb_function({
@@ -51,12 +59,12 @@ server_io.on("connection", function(socket) {
                     });
                 } else {
                     console.log("finished");
-                    console.log(results);
+                    // console.log(results);
                     results = replace_latex_for_multiple__strings(results);
                     cb_function({
                         done: true,
                         problem_list: results[0],
-                        answer_list: results[1],
+                        answer_list: results[1]
                         // 'page_key': results[2]
                     });
                     // console.log(results['problem_list'])
@@ -75,12 +83,16 @@ server_io.on("connection", function(socket) {
             var ps = require("python-shell");
             var options = {
                 args: [
-                    problem_num, col_num,
+                    problem_num,
+                    col_num,
                     "chengfahebing",
-                    page_key, // if page key not 'new' means to get answers back
-                ],
+                    page_key // if page key not 'new' means to get answers back
+                ]
             };
-            ps.PythonShell.run("./js_interface.py", options, function(err, results) {
+            ps.PythonShell.run("./js_interface.py", options, function(
+                err,
+                results
+            ) {
                 if (err) {
                     console.log(err);
                     cb_function({
@@ -88,12 +100,12 @@ server_io.on("connection", function(socket) {
                     });
                 } else {
                     console.log("finished");
-                    console.log(results);
+                    // console.log(results);
                     results = replace_latex_for_multiple__strings(results);
                     cb_function({
                         done: true,
                         problem_list: results[0],
-                        answer_list: results[1],
+                        answer_list: results[1]
                         // 'page_key': results[2]
                     });
                     // console.log(results['problem_list'])
@@ -114,26 +126,25 @@ function replace_latex_for_multiple__strings(input_strings) {
     var number_of_done = Array(number_of_strings).fill(0);
     var results = Array(number_of_strings).fill("");
     for (var i = 0; i < number_of_strings; i++) {
-        replace_latex(input_strings[i],
-            function(result) {
-                results[i] = result;
-                number_of_done[i] = 1;
-            });
+        replace_latex(input_strings[i], function(result) {
+            results[i] = result;
+            number_of_done[i] = 1;
+        });
     }
     while (number_of_done.reduce((a, b) => a + b, 0) < number_of_strings) {
         var i = 1;
-        i++; // use the while loop to wait all the results are ready 
+        i++; // use the while loop to wait all the results are ready
     }
     return results;
 }
 ////////////////////////////////////////////////////////////////
-// Using MathJax to convert TeX into svg 
+// Using MathJax to convert TeX into svg
 
 var mjAPI = require("mathjax-node");
 mjAPI.config({
     MathJax: {
         // traditional MathJax configuration
-    },
+    }
 });
 mjAPI.start();
 
@@ -159,18 +170,19 @@ function replace_latex(input_string, cb_function) {
         console.log("prefix=" + prefix);
         console.log("suffix=" + suffix);
         console.log("latex=" + latex);
-        mjAPI.typeset({
-            math: latex,
-            format: "TeX", // or "inline-TeX", "MathML"
-            svg: true, // or svg:true, or html:true
-        },
-        function(data) {
-            if (!data.errors) {
-                replace_latex(suffix, function(output) {
-                    cb_function(prefix + data.svg + output);
-                });
+        mjAPI.typeset(
+            {
+                math: latex,
+                format: "TeX", // or "inline-TeX", "MathML"
+                svg: true // or svg:true, or html:true
+            },
+            function(data) {
+                if (!data.errors) {
+                    replace_latex(suffix, function(output) {
+                        cb_function(prefix + data.svg + output);
+                    });
+                }
             }
-        }
         );
     }
 }
