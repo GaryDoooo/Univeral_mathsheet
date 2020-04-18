@@ -26,6 +26,56 @@ if (module === require.main) {
 server_io.on("connection", function(socket) {
     console.log(`made socket connection ${socket.id}`, socket.id);
 
+    socket.on("GetListHTML", function(
+        cb_function
+    ) {
+        console.log(
+            "received client gen request",
+            problem_num,
+            num_of_col,
+            question_type_list_string
+        );
+        try {
+            var ps = require("python-shell");
+            var options = {
+                args: [
+                    problem_num,
+                    num_of_col,
+                    question_type_list_string,
+                    "new" // new means to generate new page key
+                ]
+            };
+            ps.PythonShell.run("./js_interface.py", options, function(
+                err,
+                results
+            ) {
+                if (err) {
+                    console.log(err);
+                    cb_function({
+                        done: err
+                    });
+                } else {
+                    console.log("finished");
+                    // console.log(results);
+                    // results = fix_python_backslash_error(results);
+                    results = replace_latex_for_multiple__strings(results);
+                    cb_function({
+                        done: true,
+                        problem_list: results[0],
+                        answer_list: results[1]
+                        // 'page_key': results[2]
+                    });
+                    // console.log(results['problem_list'])
+                }
+            });
+        } catch (err) {
+            cb_function({
+                done: err
+            });
+            // TabNine::semSemantic completion enabled.
+        }
+    });
+
     socket.on("gen", function(
         problem_num,
         num_of_col,

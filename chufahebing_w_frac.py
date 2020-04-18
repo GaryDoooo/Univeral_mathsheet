@@ -26,7 +26,7 @@ def equation_chufahebing_minus_w_frac():
 
 
 def equation_chufahebing_plus_w_frac():
-        # equation = "VAR2\div VAR1+VAR3\div VAR1="
+    # equation = "VAR2\div VAR1+VAR3\div VAR1="
     var1 = randint(2, 9)
     answer = randint(2, 9)
     product = var1 * answer
@@ -36,10 +36,12 @@ def equation_chufahebing_plus_w_frac():
     # answer = str((var2+ var3 )/var1)
     return question, question + str(answer)
 
+
 function_list = [
     "chufahebing_plus_w_frac", "chufahebing_minus_w_frac"]
 
 sample1, _ = equation_chufahebing_plus_w_frac()
 sample2, _ = equation_chufahebing_minus_w_frac()
-abstract = "Use distributive law of division to calculate quickly, e.g. <latex>" + \
+abstract = "Use distributive law of division to calculate quickly. Calculation involves division and fractions,  e.g. <latex>" + \
     sample1 + "</latex><latex>" + sample2 + "</latex>"
+list_name = "Division distribution with fractions"

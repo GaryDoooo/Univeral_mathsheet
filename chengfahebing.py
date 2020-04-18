@@ -98,3 +98,4 @@ sample1, _ = equation_chengfahebing_plus_10()
 sample2, _ = equation_chengfahebing_minus_10s()
 abstract = "Use distributive law of multiplication to calculate quickly, e.g. <latex>" + \
     sample1 + "</latex><latex>" + sample2 + "</latex>"
+list_name = "Multiplication distribution"

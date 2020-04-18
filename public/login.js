@@ -1,6 +1,38 @@
 localStorage.setItem("stage", "login");
 
 var socket = io();
+
+window.addEventListener("load", function() {
+    var select_list = document.getElementById("ss_imp_list");
+    socket.emit("GetListHTML", function(result) {
+        select_list.innerHTML = result["select"];
+    });
+    var ex1 = document.getElementById("ex1");
+    var ex1ImportantListbox = new aria.Listbox(
+        document.getElementById("ss_imp_list")
+    );
+    var ex1Toolbar = new aria.Toolbar(ex1.querySelector('[role="toolbar"]'));
+    var ex1UnimportantListbox = new aria.Listbox(
+        document.getElementById("ss_unimp_list")
+    );
+
+    ex1ImportantListbox.setupMove(
+        document.getElementById("ex1-delete"),
+        ex1UnimportantListbox
+    );
+    ex1ImportantListbox.setHandleItemChange(function(event, items) {
+        var updateText = "";
+        if (updateText) {
+            var ex1LiveRegion = document.getElementById("ss_live_region");
+            ex1LiveRegion.innerText = updateText;
+        }
+    });
+    ex1UnimportantListbox.setupMove(
+        document.getElementById("ex1-add"),
+        ex1ImportantListbox
+    );
+});
+
 var problem_num_html = document.getElementById("problem_num"),
     num_of_col_html = document.getElementById("num_of_col"),
     generate = document.getElementById("generate"),
@@ -18,7 +50,7 @@ generate.addEventListener("click", function() {
         num_of_col = get_number(num_of_col_html.value, 5),
         prob_per_page = get_number(prob_per_page_html.value, 100),
         page_count = 0,
-        page_break_before = "<P style=\"page-break-before: always\">",
+        page_break_before = '<P style="page-break-before: always">',
         problem_output = "",
         answer_output = "",
         total_pages = Math.ceil(problem_num / prob_per_page);
