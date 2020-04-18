@@ -3,10 +3,12 @@ localStorage.setItem("stage", "login");
 var socket = io();
 
 window.addEventListener("load", function() {
+    // added by gdu to update selection list
     var select_list = document.getElementById("ss_imp_list");
     socket.emit("GetListHTML", function(result) {
-        select_list.innerHTML = result["select"];
+        select_list.innerHTML = result["selection_list"];
     });
+    // Original selection list control code
     var ex1 = document.getElementById("ex1");
     var ex1ImportantListbox = new aria.Listbox(
         document.getElementById("ss_imp_list")

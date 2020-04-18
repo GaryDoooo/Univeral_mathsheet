@@ -26,26 +26,14 @@ if (module === require.main) {
 server_io.on("connection", function(socket) {
     console.log(`made socket connection ${socket.id}`, socket.id);
 
-    socket.on("GetListHTML", function(
-        cb_function
-    ) {
-        console.log(
-            "received client gen request",
-            problem_num,
-            num_of_col,
-            question_type_list_string
-        );
+    socket.on("GetListHTML", function(cb_function) {
+        console.log("received client get HTML request");
         try {
             var ps = require("python-shell");
             var options = {
-                args: [
-                    problem_num,
-                    num_of_col,
-                    question_type_list_string,
-                    "new" // new means to generate new page key
-                ]
+                args: []
             };
-            ps.PythonShell.run("./js_interface.py", options, function(
+            ps.PythonShell.run("./getHTML_js_interface.py", options, function(
                 err,
                 results
             ) {
@@ -55,14 +43,13 @@ server_io.on("connection", function(socket) {
                         done: err
                     });
                 } else {
-                    console.log("finished");
-                    // console.log(results);
-                    // results = fix_python_backslash_error(results);
+                    console.log("get html finished");
                     results = replace_latex_for_multiple__strings(results);
+                    console.log(results);
                     cb_function({
                         done: true,
-                        problem_list: results[0],
-                        answer_list: results[1]
+                        selection_list: results[0],
+                        abstract_list: results[1]
                         // 'page_key': results[2]
                     });
                     // console.log(results['problem_list'])
@@ -171,11 +158,8 @@ server_io.on("connection", function(socket) {
     });
 }); /// end of io connect
 
-
 function fix_python_backslash_error(input_string) {
-    var replace_table = [
-        [String.raw `\\div`, String.raw `\div`]
-    ];
+    var replace_table = [[String.raw`\\div`, String.raw`\div`]];
     for (var i = 0; i < input_string.length; i++) {
         for (var j = 0; j < replace_table.length; j++) {
             input_string[i].replace(replace_table[j][0], replace_table[j][1]);
@@ -215,7 +199,7 @@ mjAPI.start();
 
 function replace_latex(input_string, cb_function) {
     var latex_start_index = input_string.indexOf("<latex>");
-    console.log("latex_start_index", latex_start_index);
+    // console.log("latex_start_index", latex_start_index);
     if (latex_start_index == -1) {
         cb_function(input_string);
     } else {
@@ -230,23 +214,24 @@ function replace_latex(input_string, cb_function) {
             latex_start_index + 7,
             latex_end_index - (latex_start_index + 7)
         );
-        console.log("latex_end_index", latex_end_index);
-        console.log("latex_length", latex_length);
-        console.log("prefix=" + prefix);
-        console.log("suffix=" + suffix);
-        console.log("latex=" + latex);
-        mjAPI.typeset({
-            math: latex.replace(/\//gi, "\\"),
-            format: "TeX", // or "inline-TeX", "MathML"
-            svg: true // or svg:true, or html:true
-        },
-        function(data) {
-            if (!data.errors) {
-                replace_latex(suffix, function(output) {
-                    cb_function(prefix + data.svg + output);
-                });
+        // console.log("latex_end_index", latex_end_index);
+        // console.log("latex_length", latex_length);
+        // console.log("prefix=" + prefix);
+        // console.log("suffix=" + suffix);
+        // console.log("latex=" + latex);
+        mjAPI.typeset(
+            {
+                math: latex.replace(/\//gi, "\\"),
+                format: "TeX", // or "inline-TeX", "MathML"
+                svg: true // or svg:true, or html:true
+            },
+            function(data) {
+                if (!data.errors) {
+                    replace_latex(suffix, function(output) {
+                        cb_function(prefix + data.svg + output);
+                    });
+                }
             }
-        }
         );
     }
 }
