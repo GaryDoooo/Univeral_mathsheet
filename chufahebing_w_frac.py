@@ -40,8 +40,9 @@ def equation_chufahebing_plus_w_frac():
 function_list = [
     "chufahebing_plus_w_frac", "chufahebing_minus_w_frac"]
 
-sample1, _ = equation_chufahebing_plus_w_frac()
-sample2, _ = equation_chufahebing_minus_w_frac()
-abstract = "Use distributive law of division to calculate quickly. Calculation involves division and fractions,  e.g. <latex>" + \
-    sample1 + "</latex><latex>" + sample2 + "</latex>"
-list_name = "Division distribution with fractions"
+# sample1, _ = equation_chufahebing_plus_w_frac()
+# sample2, _ = equation_chufahebing_minus_w_frac()
+abstract = "Use distributive law of division to calculate quickly. Calculation involves division and fractions."
+# e.g. <br><latex>" + \
+#     sample1 + "</latex><br><latex>" + sample2 + "</latex>"
+list_name = "Division dist. with fractions"

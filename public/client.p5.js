@@ -11,16 +11,16 @@ if (stage === "login") {
 var problem_list = localStorage.getItem("problem_list");
 var answer_list = localStorage.getItem("answer_list");
 var current_display = 0;
-console.log("Got result.\n", problem_list, answer_list);
+// console.log("Got result.\n", problem_list, answer_list);
 
-var output = document.getElementById('output'),
-    swap = document.getElementById('swap');
+var output = document.getElementById("output"),
+    swap = document.getElementById("swap");
 
 output.innerHTML = problem_list;
 
 // Emit events
 // Detect the click event on send key
-swap.addEventListener('click', function() {
+swap.addEventListener("click", function() {
     current_display += 1;
     if (current_display % 2 == 0) {
         output.innerHTML = problem_list;

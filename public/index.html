@@ -1,177 +1,147 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Math Gen</title>
-        <script src="/libs/socket.io.js"></script>
-        <link href="chatroom.css" rel="stylesheet" />
-        <script src="js/utils.js" type="text/javascript"></script>
-        <link href="js/listbox.css" rel="stylesheet" />
-        <script src="js/listbox.js" type="text/javascript"></script>
-        <script src="js/toolbar.js" type="text/javascript"></script>
-        <!-- <script -->
-            <!-- src="js/listbox-rearrangeable.js" -->
-            <!-- type="text/javascript" -->
-        <!-- ></script> -->
-    </head>
 
-    <body>
-        <div id="chat">
-            <h2>Math Sheet Gen</h2>
+<head>
+    <meta charset="utf-8" />
+    <title>Math Gen</title>
+    <script src="/libs/socket.io.js"></script>
+    <link href="chatroom.css" rel="stylesheet" />
+    <script src="js/utils.js" type="text/javascript"></script>
+    <link href="js/listbox.css" rel="stylesheet" />
+    <script src="js/listbox.js" type="text/javascript"></script>
+    <script src="js/toolbar.js" type="text/javascript"></script>
+    <!-- <script -->
+    <!-- src="js/listbox-rearrangeable.js" -->
+    <!-- type="text/javascript" -->
+    <!-- ></script> -->
+</head>
+
+<body>
+    <div id="chat">
+        <h2>Math Sheet Gen</h2>
+        <hr />
+        <table>
+            <tr>
+                <td>
+                    <p>Total number of problems (max 2,000)</p>
+                </td>
+                <td>
+                    <input id="problem_num" type="text" value="100" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Number of Columns (max 10)</p>
+                </td>
+                <td>
+                    <input id="num_of_col" type="text" value="5" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Problems per page</p>
+                </td>
+                <td>
+                    <input id="prob_per_page" type="text" value="100" />
+                </td>
+            </tr>
             <hr />
-            <table>
-                <tr>
-                    <td>
-                        <p>Total number of problems (max 20,000)</p>
-                    </td>
-                    <td>
-                        <input id="problem_num" type="text" value="100" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Number of Columns (max 10)</p>
-                    </td>
-                    <td>
-                        <input id="num_of_col" type="text" value="5" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Problems per page</p>
-                    </td>
-                    <td>
-                        <input id="prob_per_page" type="text" value="100" />
-                    </td>
-                </tr>
-                <hr />
-            </table>
-
-            <div
-                role="separator"
-                id="ex1_start_sep"
-                aria-labelledby="ex1_start_sep ex1_label"
-                aria-label="Start of"
-            ></div>
-            <div id="ex1">
-                <p>
-                    Select topics for the math sheet to include:
-                </p>
-                <div class="listbox-area">
-                    <div class="left-area">
-                        <span id="ss_imp_l">Available topics:</span>
-                        <ul
-                            id="ss_imp_list"
-                            tabindex="0"
-                            role="listbox"
-                            aria-labelledby="ss_imp_l"
-                        >
-                            <li id="ss_opt1" role="option">
-                                Proximity of public K-12 schools
-                            </li>
-                        </ul>
-                        <div
-                            role="toolbar"
-                            aria-label="Actions"
-                            class="toolbar"
-                        >
-                            <button
-                                id="ex1-delete"
-                                class="toolbar-item move-right-btn"
-                                tabindex="-1"
-                                aria-keyshortcuts="Alt+ArrowRight Delete"
-                                aria-disabled="true"
-                            >
-                                Select
-                            </button>
-                        </div>
-                    </div>
-                    <div class="right-area">
-                        <span id="ss_unimp_l">Selected topics:</span>
-                        <ul
-                            id="ss_unimp_list"
-                            tabindex="0"
-                            role="listbox"
-                            aria-labelledby="ss_unimp_l"
-                            aria-activedescendant=""
-                        ></ul>
-                        <button
-                            id="ex1-add"
-                            class="move-left-btn"
-                            aria-keyshortcuts="Alt+ArrowLeft Enter"
-                            aria-disabled="true"
-                        >
-                            Deselect
+        </table>
+        <div role="separator" id="ex1_start_sep" aria-labelledby="ex1_start_sep ex1_label" aria-label="Start of"></div>
+        <div id="ex1">
+            <p>
+                Select topics for the math sheet by the name and abstrat below to the right hand side. Click "Generate Math Sheet" to get both math sheets and answers.
+            </p>
+            <!-- <div class="listbox-area">
+    <ul aria-live="polite" id="ss_live_region" class="abstract-list">
+        <li id="ss_opt1" role="option">
+            Proximity of public K-12 schools
+        </li>
+    </ul>
+</div> -->
+            <!--         <div class="listbox-area"> -->
+            <ul id="ss_live_region" role="abstract-list">
+                <li id="ss_opt1" role="option">
+                    Javascript will load contents here
+                </li>
+            </ul>
+            <!-- </div> -->
+            <div class="listbox-area">
+                <!--                <ul id="ss_live_region" class="abstract-list">
+                    <li id="ss_opt1" role="option">
+                        Javascript will load contents here
+                    </li>
+                </ul> -->
+                <div class="left-area">
+                    <span id="ss_imp_l">Unselected topics:</span>
+                    <ul id="ss_imp_list" tabindex="0" role="listbox" aria-labelledby="ss_imp_l">
+                        <li id="ss_opt1" role="option">
+                            Javascript will load contents here
+                        </li>
+                    </ul>
+                    <div role="toolbar" aria-label="Actions" class="toolbar">
+                        <button id="ex1-delete" class="toolbar-item move-right-btn" tabindex="-1" aria-keyshortcuts="Alt+ArrowRight Delete" aria-disabled="true">
+                            Select
                         </button>
                     </div>
                 </div>
-                <div>
-                    <!-- class="offscreen"> -->
-                    Last change:
-                    <span aria-live="polite" id="ss_live_region"></span>
+                <div class="right-area">
+                    <span id="ss_unimp_l">Selected topics:</span>
+                    <ul id="ss_unimp_list" tabindex="0" role="listbox" aria-labelledby="ss_unimp_l" aria-activedescendant=""></ul>
+                    <button id="ex1-add" class="move-left-btn" aria-keyshortcuts="Alt+ArrowLeft Enter" aria-disabled="true">
+                        Deselect
+                    </button>
                 </div>
             </div>
-            <div
-                role="separator"
-                id="ex1_end_sep"
-                aria-labelledby="ex1_end_sep ex1_label"
-                aria-label="End of"
-            ></div>
-            <!-- <select id="operator" class="select-css"> -->
-            <!-- <option value="a">ADDITION</option> -->
-            <!-- <option value="s">SUBSTRACTION</option> -->
-            <!-- <option value="m">MULTIPLICAITON</option> -->
-            <!-- <option value="d">DIVISION</option> -->
-            <!-- </select> -->
-            <hr />
-            <button id="generate">Generate Math Sheet</button>
-            <hr />
-            <table>
-                <tr>
-                    Get the answer page back by key. Double check the key is
-                    correct.
-                </tr>
-                <tr>
-                    <td>
-                        <p>Total number of problems (<20,000)</p>
-                    </td>
-                    <td>
-                        <input
-                            id="problem_num_answer"
-                            type="text"
-                            value="100"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Number of Columns (<=10)</p>
-                    </td>
-                    <td>
-                        <input id="col_num_answer" type="text" value="5" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Answer Key (not case sensitive)</p>
-                    </td>
-                    <td>
-                        <input
-                            id="page_key"
-                            type="text"
-                            placeholder="No SPACE, with $-#@"
-                        />
-                    </td>
-                </tr>
-                <hr />
-            </table>
-
-            <hr />
-            <button id="get_answer">Retrieve Answer Sheet</button>
         </div>
-        <!-- <script src="/client.js"></script> -->
-        <!-- <script src="/libs/p5.js"></script> -->
-        <!-- <script src="gdu_keygen.js"></script> -->
-        <script src="login.js"></script>
-    </body>
+        <div role="separator" id="ex1_end_sep" aria-labelledby="ex1_end_sep ex1_label" aria-label="End of"></div>
+        <!-- <select id="operator" class="select-css"> -->
+        <!-- <option value="a">ADDITION</option> -->
+        <!-- <option value="s">SUBSTRACTION</option> -->
+        <!-- <option value="m">MULTIPLICAITON</option> -->
+        <!-- <option value="d">DIVISION</option> -->
+        <!-- </select> -->
+        <hr />
+        <button id="generate">Generate Math Sheet</button>
+        <hr />
+        <table>
+            <tr>
+                Get the answer page back by key. Double check the key is
+                correct.
+            </tr>
+            <tr>
+                <td>
+                    <p>Total number of problems (max 2,000)</p>
+                </td>
+                <td>
+                    <input id="problem_num_answer" type="text" value="100" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Number of Columns (max 10)</p>
+                </td>
+                <td>
+                    <input id="col_num_answer" type="text" value="5" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Answer Key (not case sensitive)</p>
+                </td>
+                <td>
+                    <input id="page_key" type="text" placeholder="No SPACE, with $-#@" />
+                </td>
+            </tr>
+            <hr />
+        </table>
+        <hr />
+        <button id="get_answer">Retrieve Answer Sheet</button>
+    </div>
+    <!-- <script src="/client.js"></script> -->
+    <!-- <script src="/libs/p5.js"></script> -->
+    <!-- <script src="gdu_keygen.js"></script> -->
+    <script src="login.js"></script>
+</body>
+
 </html>

@@ -48,8 +48,9 @@ def equation_chufahebing_plus():
 function_list = [
     "chufahebing_plus", "chufahebing_minus"]
 
-sample1, _ = equation_chufahebing_plus()
-sample2, _ = equation_chufahebing_minus()
-abstract = "Use distributive law of division to calculate quickly, e.g. <latex>" + \
-    sample1 + "</latex><latex>" + sample2 + "</latex>"
-list_name="Division distribution"
+# sample1, _ = equation_chufahebing_plus()
+# sample2, _ = equation_chufahebing_minus()
+abstract = "Use distributive law of division to calculate quickly."
+# e.g. <br><latex>" + \
+#     sample1 + "</latex><br><latex>" + sample2 + "</latex>"
+list_name = "Division distribution"

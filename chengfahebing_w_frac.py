@@ -61,8 +61,9 @@ function_list = [
     "chengfahebing_w_frac_minus_10",
     "chengfahebing_w_frac_minus_10s"]
 
-sample1, _ = equation_chengfahebing_w_frac_plus_10()
-sample2, _ = equation_chengfahebing_w_frac_minus_10s()
-abstract = "Use distributive law of multiplication to calculate quickly. But in this case, the multiplication includes division and fractions. e.g. <latex>" + \
-    sample1 + "</latex><latex>" + sample2 + "</latex>"
-list_name = "Multiplication distribution w/fractions"
+# sample1, _ = equation_chengfahebing_w_frac_plus_10()
+# sample2, _ = equation_chengfahebing_w_frac_minus_10s()
+abstract = "Use distributive law of multiplication to calculate quickly. But in this case, the multiplication includes division and fractions."
+# " e.g. <br><latex>" + \
+#     sample1 + "</latex><br><latex>" + sample2 + "</latex>"
+list_name = "Multiplication dist. with fractions"

@@ -3,9 +3,9 @@ from random import randint
 
 def equation_chengfahebing_plus_10():
     equation = []
-    equation.append("VAR1\times VAR2+VAR1\times VAR3=")
-    equation.append("VAR2\times VAR1+VAR3\times VAR1=")
-    equation.append("VAR2\times VAR1+VAR3\times VAR1=")
+    equation.append("VAR1/times VAR2+VAR1/times VAR3=")
+    equation.append("VAR2/times VAR1+VAR3/times VAR1=")
+    equation.append("VAR2/times VAR1+VAR3/times VAR1=")
     index_equation = randint(0, 2)
     var1 = randint(5, 30)
     var2 = randint(1, 9)
@@ -23,9 +23,9 @@ def equation_chengfahebing_plus_10():
 
 def equation_chengfahebing_plus_10s():
     equation = []
-    equation.append("VAR1\times VAR2+VAR1\times VAR3=")
-    equation.append("VAR2\times VAR1+VAR3\times VAR1=")
-    equation.append("VAR2\times VAR1+VAR3\times VAR1=")
+    equation.append("VAR1/times VAR2+VAR1/times VAR3=")
+    equation.append("VAR2/times VAR1+VAR3/times VAR1=")
+    equation.append("VAR2/times VAR1+VAR3/times VAR1=")
     index_equation = randint(0, 2)
     var1 = randint(2, 9)
     s = randint(1, 9) * 10  # sum of var2 and var3
@@ -44,9 +44,9 @@ def equation_chengfahebing_plus_10s():
 
 def equation_chengfahebing_minus_10():
     equation = []
-    equation.append("VAR1\times VAR2-VAR1\times VAR3=")
-    equation.append("VAR2\times VAR1-VAR3\times VAR1=")
-    equation.append("VAR2\times VAR1-VAR3\times VAR1=")
+    equation.append("VAR1/times VAR2-VAR1/times VAR3=")
+    equation.append("VAR2/times VAR1-VAR3/times VAR1=")
+    equation.append("VAR2/times VAR1-VAR3/times VAR1=")
     index_equation = randint(0, 2)
     var1 = randint(5, 30)
     var2 = randint(11, 99)
@@ -66,9 +66,9 @@ def equation_chengfahebing_minus_10():
 
 def equation_chengfahebing_minus_10s():
     equation = []
-    equation.append("VAR1\times VAR2-VAR1\times VAR3=")
-    equation.append("VAR2\times VAR1-VAR3\times VAR1=")
-    equation.append("VAR2\times VAR1-VAR3\times VAR1=")
+    equation.append("VAR1/times VAR2-VAR1/times VAR3=")
+    equation.append("VAR2/times VAR1-VAR3/times VAR1=")
+    equation.append("VAR2/times VAR1-VAR3/times VAR1=")
     index_equation = randint(0, 2)
     var1 = randint(2, 9)
     d1 = randint(1, 9)  # digit at 1
@@ -94,8 +94,9 @@ function_list = [
     "chengfahebing_minus_10",
     "chengfahebing_minus_10s"]
 
-sample1, _ = equation_chengfahebing_plus_10()
-sample2, _ = equation_chengfahebing_minus_10s()
-abstract = "Use distributive law of multiplication to calculate quickly, e.g. <latex>" + \
-    sample1 + "</latex><latex>" + sample2 + "</latex>"
+# sample1, _ = equation_chengfahebing_plus_10()
+# sample2, _ = equation_chengfahebing_minus_10s()
+abstract = "Use distributive law of multiplication to calculate quickly"
+# , e.g. <br><latex>" + \
+# sample1 + "</latex><br><latex>" + sample2 + "</latex>"
 list_name = "Multiplication distribution"

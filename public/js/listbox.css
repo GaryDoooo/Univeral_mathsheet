@@ -10,6 +10,26 @@
     font-size: 0;
 }
 
+[role="abstract-list"] {
+
+    /*width: 100%;*/
+    padding: 0;
+    background: #eee;
+    border: 0px solid #fff;
+    /*    overflow: scroll;
+    position: relative;
+    box-sizing: border-box;
+    /*display: inline-block;*/
+    font-size: 14;
+    /*max-height: 8em;*/
+    /*min-height: 8em;*/
+    display: block;
+    width: 100%;
+    height: 8em;
+    /*background-color:#475;*/
+    overflow: scroll;
+}
+
 .left-area,
 .right-area {
     box-sizing: border-box;
@@ -51,6 +71,11 @@
     content: "✓";
     position: absolute;
     left: 0.5em;
+}
+
+[role="table"] {
+    /*left: 1em;*/
+    padding: 0 1em 0 1.5em;
 }
 
 /* button { */

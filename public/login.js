@@ -1,19 +1,24 @@
 localStorage.setItem("stage", "login");
 
 var socket = io();
+var abstrat_list_HTML_all_hidden = "";
 
 window.addEventListener("load", function() {
     // added by gdu to update selection list
     var select_list = document.getElementById("ss_imp_list");
+    var abstrat_list = document.getElementById("ss_live_region");
     socket.emit("GetListHTML", function(result) {
         select_list.innerHTML = result["selection_list"];
+        abstrat_list.innerHTML = result["abstract_list"];
+        abstrat_list_HTML_all_hidden = result["abstract_list"];
     });
+
     // Original selection list control code
     var ex1 = document.getElementById("ex1");
     var ex1ImportantListbox = new aria.Listbox(
         document.getElementById("ss_imp_list")
     );
-    var ex1Toolbar = new aria.Toolbar(ex1.querySelector('[role="toolbar"]'));
+    var ex1Toolbar = new aria.Toolbar(ex1.querySelector("[role=\"toolbar\"]"));
     var ex1UnimportantListbox = new aria.Listbox(
         document.getElementById("ss_unimp_list")
     );
@@ -28,6 +33,16 @@ window.addEventListener("load", function() {
             var ex1LiveRegion = document.getElementById("ss_live_region");
             ex1LiveRegion.innerText = updateText;
         }
+    });
+    ex1ImportantListbox.setHandleFocusChange(function(event, items) {
+        console.log("Focus change event", event, "    items", items);
+        console.log("event's id", event.id); // event is the li element focused newly
+        var abstrat_list = document.getElementById("ss_live_region");
+        abstrat_list.innerHTML = abstrat_list_HTML_all_hidden;
+        var abstrat_to_show = document.getElementById(event.id + "_abs");
+        abstrat_to_show.classList.remove("hidden");
+        var abstrat_to_show = document.getElementById(event.id + "_abs_table");
+        abstrat_to_show.classList.remove("hidden");
     });
     ex1UnimportantListbox.setupMove(
         document.getElementById("ex1-add"),
@@ -47,31 +62,31 @@ var problem_num_html = document.getElementById("problem_num"),
 
 generate.addEventListener("click", function() {
     console.log("Key pressed generate");
-    console.log(select_list_html.innerHTML);
+    // console.log(select_list_html.innerHTML);
     var problem_num = get_number(problem_num_html.value, 100),
         num_of_col = get_number(num_of_col_html.value, 5),
         prob_per_page = get_number(prob_per_page_html.value, 100),
         page_count = 0,
-        page_break_before = '<P style="page-break-before: always">',
+        page_break_before = "<P style=\"page-break-before: always\">",
         problem_output = "",
         answer_output = "",
         total_pages = Math.ceil(problem_num / prob_per_page);
 
     // add selected list items into a string delim by ","
-    if (select_list_html.children.length > 0) {
+    if ((select_list_html.children.length > 0) && (problem_num <= 2000)) {
         var selected_list = select_list_html.children[0].id;
         for (var i = 1; i < select_list_html.children.length; i++) {
             selected_list =
                 selected_list + "," + select_list_html.children[i].id;
         }
-        console.log(selected_list);
+        console.log("Selection list sent:", selected_list);
 
         for (var i = 0; i < problem_num; i += prob_per_page) {
             socket.emit(
                 "gen",
                 Math.min(prob_per_page, problem_num - i),
                 num_of_col,
-                "chengfahebing,chufahebing",
+                selected_list,
                 function(result) {
                     if (page_count > 0) {
                         problem_output += page_break_before;
@@ -98,7 +113,7 @@ generate.addEventListener("click", function() {
             );
         }
     } else {
-        alert("No seleted topics for the math sheet.");
+        alert("No seleted topics for the math sheet; or too many problems to generate.");
     }
 });
 
