@@ -26,7 +26,9 @@ class equation:
         self.module_list = module_list
         self.module = {}
         for _ in self.module_list:
-            _m = import_module(_)
+            # In Python to import a py module under a directory, use
+            # dir_name.module_name instead of dir_name/module_name
+            _m = import_module("Q_Gen_modules." + _)
             self.module.update({_: _m})
         self.add_absract_samples()
 

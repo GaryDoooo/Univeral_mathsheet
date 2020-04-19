@@ -33,7 +33,7 @@ server_io.on("connection", function(socket) {
             var options = {
                 args: []
             };
-            ps.PythonShell.run("./getHTML_js_interface.py", options, function(
+            ps.PythonShell.run("./python_modules/getHTML_js_interface.py", options, function(
                 err,
                 results
             ) {
@@ -85,7 +85,7 @@ server_io.on("connection", function(socket) {
                     "There_is_no_page_key_input" // new means to generate new page key
                 ]
             };
-            ps.PythonShell.run("./js_interface.py", options, function(
+            ps.PythonShell.run("./python_modules/js_interface.py", options, function(
                 err,
                 results
             ) {
@@ -127,7 +127,7 @@ server_io.on("connection", function(socket) {
                     page_key // if page key not 'new' means to get answers back
                 ]
             };
-            ps.PythonShell.run("./js_interface.py", options, function(
+            ps.PythonShell.run("./python_modules/js_interface.py", options, function(
                 err,
                 results
             ) {
