@@ -82,7 +82,7 @@ server_io.on("connection", function(socket) {
                     problem_num,
                     num_of_col,
                     question_type_list_string,
-                    "new" // new means to generate new page key
+                    "There_is_no_page_key_input" // new means to generate new page key
                 ]
             };
             ps.PythonShell.run("./js_interface.py", options, function(
@@ -123,7 +123,7 @@ server_io.on("connection", function(socket) {
                 args: [
                     problem_num,
                     col_num,
-                    "chengfahebing",
+                    "dummyInput",
                     page_key // if page key not 'new' means to get answers back
                 ]
             };

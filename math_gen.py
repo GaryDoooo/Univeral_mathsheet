@@ -1,8 +1,9 @@
 # Copyright 2017 Garry Du
 from gen import question_gen
-import random
-from page_key import page_key_compress as encode_key
-from page_key import page_key_decompress as decode_key
+#  import random
+#  from page_key import page_key_compress as encode_key
+#  from page_key import page_key_decompress as decode_key
+#
 
 
 def html_output(problem_list="", answer_list="", page_key="", num_of_col=5):
@@ -31,26 +32,26 @@ def html_output(problem_list="", answer_list="", page_key="", num_of_col=5):
 
 def dispatch(question_type_list_string="chengfahebing", problem_num=5,
              page_key="new"):
-    max_list = [  # 20000,  # problem list max 20k
-        #  2000,  # num min and max both have -1000 to 1000 range thus 0-1999
-        #  2000,
-        #  2000,
-        #  2000,
-        #  1000001,  # result max in 1M
-        5,  # operator 1-4
-        65535  # max of rand seed
-    ]
-    if page_key == "new":
-        randseed = random.randint(0, 65534)
-        page_key = encode_key([1, randseed
-                               ], max_list)
-    else:
-        [_, randseed] = decode_key(page_key, max_list)
+    #  max_list = [  # 20000,  # problem list max 20k
+    #  2000,  # num min and max both have -1000 to 1000 range thus 0-1999
+    #  2000,
+    #  2000,
+    #  2000,
+    #  1000001,  # result max in 1M
+    #  5,  # operator 1-4
+    #  65535  # max of rand seed
+    #  ]
+    #  if page_key == "new":
+    #  randseed = random.randint(0, 65534)
+    #  page_key = encode_key([1, randseed
+    #  ], max_list)
+    #  else:
+    #  [_, randseed] = decode_key(page_key, max_list)
     if not (0 < problem_num <= 2000):
         problem_num = 100
     ##### Generate problems. #####
-    problem_list, answer_list = question_gen(question_type_list_string,
-                                             problem_num, randseed)
+    problem_list, answer_list, page_key = question_gen(
+        question_type_list_string, problem_num, page_key)
 
     return problem_list, answer_list, page_key
 
