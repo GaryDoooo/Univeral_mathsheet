@@ -9,7 +9,7 @@ global_module_list = [
     "chengfahebing",
     "chufahebing_w_frac",
     "chufahebing",
-    "chengfahebing_w_frac"]
+    "chengfahebing_w_frac", "fraction_basic", "exponent_compare"]
 # the first max is the 2 power of number of diffuser modules, 2147483647
 # is 32 bit integer, so far the program is good for 32 different modules.
 # The second max is for random seed
@@ -39,9 +39,11 @@ class equation:
         #  </li>
         selection_html = ""
         abstract_html = ""
+        index = 0
         for module_name in self.module_list:
+            index += 1
             selection_html += '<li id="%s" role="option">%s</li>' % (
-                module_name, self.module[module_name].list_name)
+                module_name, "%d) " % index + self.module[module_name].list_name)
             abstract_html += ('<li id="' + module_name + "_abs" +
                               '" role="option" class="hidden">' +
                               self.module[module_name].abstract +

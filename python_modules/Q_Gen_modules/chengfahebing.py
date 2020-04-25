@@ -1,5 +1,14 @@
 from random import randint
 
+function_list = [
+    "chengfahebing_plus_10",
+    "chengfahebing_plus_10s",
+    "chengfahebing_minus_10",
+    "chengfahebing_minus_10s"]
+
+abstract = "Use distributive law of multiplication to calculate quickly."
+list_name = "Multiplication distribution"
+
 
 def equation_chengfahebing_plus_10():
     equation = []
@@ -86,17 +95,3 @@ def equation_chengfahebing_minus_10s():
         str(var3))
     answer = str(var1 * var2 - var3 * var1)
     return question, question + answer
-
-
-function_list = [
-    "chengfahebing_plus_10",
-    "chengfahebing_plus_10s",
-    "chengfahebing_minus_10",
-    "chengfahebing_minus_10s"]
-
-# sample1, _ = equation_chengfahebing_plus_10()
-# sample2, _ = equation_chengfahebing_minus_10s()
-abstract = "Use distributive law of multiplication to calculate quickly"
-# , e.g. <br><latex>" + \
-# sample1 + "</latex><br><latex>" + sample2 + "</latex>"
-list_name = "Multiplication distribution"
