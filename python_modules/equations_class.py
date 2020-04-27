@@ -9,7 +9,10 @@ global_module_list = [
     "chengfahebing",
     "chufahebing_w_frac",
     "chufahebing",
-    "chengfahebing_w_frac", "fraction_basic", "exponent_compare"]
+    "chengfahebing_w_frac",
+    "fraction_basic",
+    "exponent_compare",
+    "two_symbol_expand"]
 # the first max is the 2 power of number of diffuser modules, 2147483647
 # is 32 bit integer, so far the program is good for 32 different modules.
 # The second max is for random seed
@@ -130,7 +133,8 @@ class equation:
 def call(module, function_name_suffix, var_list=None):
     # this is an importance methode: to call a function inside a module by its
     # name in a string
-    function_to_run = getattr(module, "equation_" + function_name_suffix)
+    function_to_run = getattr(module, "equation_" +
+                              function_name_suffix.replace("equation_", ""))
     if var_list is None:
         return function_to_run()
     else:
