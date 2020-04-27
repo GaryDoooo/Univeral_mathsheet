@@ -5,7 +5,7 @@ from Q_Gen_modules.fraction_basic import mixed_number_simplify
 function_list = ['same_exp_compare', 'same_base_compare']
 abstract = "Compare two exponential expressions, and fill the relationship with greater than or less than or equal. There is no additional calculation step for either side."
 list_name = "Exponent comparison"
-
+note = "Compare two exponential expressions, and fill the relationship with >, <, or =."
 
 #  def generate_base():
 #  types = [
@@ -14,6 +14,7 @@ list_name = "Exponent comparison"
 #  "base>2",
 #  "base<1 fraction",
 #  "base>1 fraction"]
+
 
 def equation_same_exp_compare():
     # Generate two bases both >0 and not 1

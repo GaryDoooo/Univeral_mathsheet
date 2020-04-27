@@ -35,6 +35,7 @@ def question_gen(
         question_type_list, randseed = equations.decode_key(
             page_key.replace(" ", ""))
     question_type_list = equations.sort_question_list(question_type_list)
+    page_note = equations.get_page_note(question_type_list)
     random.seed(randseed)
     for i in range(1, problem_num + 1):
         # a string of name of the question type
@@ -49,7 +50,7 @@ def question_gen(
                                             new_answer
                                             ))
 
-    return problem_list, answer_list, page_key
+    return problem_list, answer_list, page_key, page_note
 
 
 if __name__ == '__main__':

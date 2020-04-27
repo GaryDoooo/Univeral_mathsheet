@@ -11,12 +11,12 @@ question_type_list_string = sys.argv[3]
 page_key = sys.argv[4]
 num_of_col = sys.argv[2]
 
-problem_list, answer_list, page_key = dispatch(
+problem_list, answer_list, page_key, page_note = dispatch(
     question_type_list_string, problem_num,
     page_key
 )
 problem_output, answer_output = html_output(
-    problem_list, answer_list, page_key, num_of_col)
+    problem_list, answer_list, page_key, page_note, num_of_col)
 # result={
 # 	"problem_list":problem_output,
 # 	"answer_list":answer_output

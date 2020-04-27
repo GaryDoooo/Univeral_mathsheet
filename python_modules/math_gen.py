@@ -6,10 +6,18 @@ from gen import question_gen
 #
 
 
-def html_output(problem_list="", answer_list="", page_key="", num_of_col=5):
+def html_output(
+        problem_list="",
+        answer_list="",
+        page_key="",
+        page_note="",
+        num_of_col=5):
     problem_output = ''
     table_head = '<table BORDERCOLOR=white width="100%"><tr><th colspan="5">ANSWER KEY:  ' + \
-        page_key + '</th></tr><tr>'
+        page_key
+    if page_note != '':
+        table_head += '<br>' + page_note
+    table_head += '</th></tr><tr>'
     table_end = "  </tr></table>"
     answer_output = problem_output
     counter = 0
@@ -50,10 +58,10 @@ def dispatch(question_type_list_string="chengfahebing", problem_num=5,
     if not (0 < problem_num <= 2000):
         problem_num = 100
     ##### Generate problems. #####
-    problem_list, answer_list, page_key = question_gen(
+    problem_list, answer_list, page_key, page_note = question_gen(
         question_type_list_string, problem_num, page_key)
 
-    return problem_list, answer_list, page_key
+    return problem_list, answer_list, page_key, page_note
 
 
 def check_input(first_num_max,

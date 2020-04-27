@@ -117,6 +117,15 @@ class equation:
                 result_list.append(module_name)
         return result_list
 
+    def get_page_note(self, question_list):
+        result = ""
+        for module_name in question_list:
+            try:
+                result += self.module[module_name].note + " "
+            except BaseException:
+                pass
+        return result
+
 
 def call(module, function_name_suffix, var_list=None):
     # this is an importance methode: to call a function inside a module by its
@@ -134,3 +143,4 @@ if __name__ == "__main__":
     #  print(a.li_html())
     print(a.encode_key(["chengfahebing", "chufahebing_w_frac"], 44))
     print(a.decode_key("eydw"))
+    print(a.get_page_note(["chengfahebing", "exponent_compare"]))
