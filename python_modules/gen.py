@@ -37,8 +37,13 @@ def question_gen(
     question_type_list = equations.sort_question_list(question_type_list)
     page_note = equations.get_page_note(question_type_list)
     random.seed(randseed)
+    # Gen and store rand seed for each question
+    seed = []
+    for _ in range(problem_num):
+        seed.append(random.randint(0, 4294967295))
     for i in range(1, problem_num + 1):
         # a string of name of the question type
+        random.seed(seed[i - 1])
         question_type = random.choice(question_type_list)
 
         new_problem, new_answer = equations.generate_a_question(question_type)

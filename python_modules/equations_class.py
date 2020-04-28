@@ -12,7 +12,9 @@ global_module_list = [
     "chengfahebing_w_frac",
     "fraction_basic",
     "exponent_compare",
-    "two_symbol_expand"]
+    "two_symbol_expand1",
+    "two_symbol_expand2"
+]
 # the first max is the 2 power of number of diffuser modules, 2147483647
 # is 32 bit integer, so far the program is good for 32 different modules.
 # The second max is for random seed

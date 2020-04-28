@@ -55,7 +55,7 @@ def dispatch(question_type_list_string="chengfahebing", problem_num=5,
     #  ], max_list)
     #  else:
     #  [_, randseed] = decode_key(page_key, max_list)
-    if not (0 < problem_num <= 2000):
+    if not (0 < problem_num <= 200):
         problem_num = 100
     ##### Generate problems. #####
     problem_list, answer_list, page_key, page_note = question_gen(
