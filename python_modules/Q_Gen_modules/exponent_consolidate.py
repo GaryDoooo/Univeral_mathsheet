@@ -1,156 +1,215 @@
 from random import randint, choice
 from fractions import Fraction
-from Q_Gen_modules.fraction_basic import mixed_number_simplify
+import sympy
+try:
+    from Q_Gen_modules.fraction_basic import mixed_number_simplify
+except BaseException:
+    from fraction_basic import mixed_number_simplify
 
-function_list = ['same_exp_compare', 'same_base_compare']
-abstract = "Compare two exponential expressions, and fill the relationship with greater than or less than or equal. There is no additional calculation step for either side."
-list_name = "Exponent comparison"
-note = "Compare two exponential expressions, and fill the relationship with >, <, or =."
-
-#  def generate_base():
-#  types = [
-#  "base<1",
-#  "1<base<2",
-#  "base>2",
-#  "base<1 fraction",
-#  "base>1 fraction"]
-
-
-def equation_same_exp_compare():
-    # Generate two bases both >0 and not 1
-    while True:
-        base1, base2 = generate_two_exp()
-        if base1 > 0 and base2 > 0 and base1 != 1 and base2 != 1:
-            break
-    exp, _ = generate_two_exp()
-    question, answer = get_output(base1, exp, base2, exp)
-    return question, answer
+function_list = [
+    "equation_one_var_simple",
+    "equation_one_var_with_xishu_fraction",
+    "equation_one_var_with_xishu",
+    "equation_one_var_simple_fraction"]
+abstract = "Consolidate the expression into one single exponent. It includes different exponent caculations."
+list_name = "Exponent consolidate I"
+note = "All symbols in the exponent consolidation problems are positive."
 
 
-def equation_same_base_compare():
-    # Generate a base 0< and not 1
-    while True:
-        base, _ = generate_two_exp()
-        if base > 0 and base != 1:
-            break
-    exp1, exp2 = generate_two_exp()
-    question, answer = get_output(base, exp1, base, exp2)
-    return question, answer
-
-
-def print_exp_with_fraction(base, exp):
-    if isinstance(base, Fraction):
-        return "(" + print_rational_number(base) + ")" + \
-            "^{" + print_rational_number(exp) + "}"
-    else:
-        return "{" + print_rational_number(base) + "}" + \
-            "^{" + print_rational_number(exp) + "}"
-
-
-def get_output(base1, exp1, base2, exp2):
-    var1 = print_exp_with_fraction(base1, exp1)
-    var2 = print_exp_with_fraction(base2, exp2)
-    question = var1 + '/;/;/;' + var2
-    if base1**exp1 > base2**exp2:
-        answer = var1 + ">" + var2
-    elif base1**exp1 == base2**exp2:
-        answer = var1 + "=" + var2
-    else:
-        answer = var1 + "<" + var2
-    return question, answer
-
-
-def print_rational_number(i):
-    if isinstance(i, Fraction):
-        return mixed_number_simplify(i)
-    else:
-        return str(i)
-
-
-def generate_two_exp():
-    types = ["0<two<1", "two>1", "positive and negative", ">1 and <1"]
-    fraction = choice([True, False])
-    exp_type = choice(types)
-    while True:
-        if exp_type == "0<two<1":
-            if fraction:
-                if randint(0, 1) == 1:  # same numerator or same denominator
-                    denominator1 = randint(2, 9)
-                    denominator2 = denominator1
-                    numerator1 = randint(0, denominator1 - 1)
-                    numerator2 = randint(1, denominator1 - 1)
+def equation_one_var_with_xishu_fraction():
+    pool = ["times", "divide"]
+    term_latex_list, term_symbol_list = gen_terms(2, 4)
+    result_latex = ""
+    result_symbol = 1
+    for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
+        operator = choice(pool)
+        xishu = randint(2, 12)
+        if xishu < 5:
+            term_latex = str(xishu) + term_latex
+            term_symbol = term_symbol * xishu
+            #  with_xishu = True
+        #  else:
+            #  with_xishu = False
+        if operator == "times":
+            if len(result_latex) > 0:
+                result_latex += "/times " + term_latex
+            else:
+                result_latex = term_latex
+            result_symbol = result_symbol * term_symbol
+        elif operator == "divide":
+            if len(result_latex) > 0:
+                result_latex = "/frac{%s}{%s}" % (result_latex, term_latex)
+                result_symbol = result_symbol / term_symbol
+            else:
+                if randint(0, 3) == 1:
+                    # in a few cases put 1 / xxxxx in the beginning
+                    result_latex = "/frac{%s}{%s}" % ("1", term_latex)
+                    result_symbol = 1 / term_symbol
                 else:
-                    while True:
-                        numerator1 = randint(1, 9)
-                        numerator2 = numerator1
-                        denominator1 = randint(2, 9)
-                        denominator2 = randint(2, 9)
-                        if denominator1 > numerator1 and denominator2 > numerator2:
-                            break
-                exp1 = Fraction(numerator1, denominator1)
-                exp2 = Fraction(numerator2, denominator2)
-            else:
-                exp1 = randint(0, 10) / 10
-                exp2 = randint(0, 10) / 10
+                    result_symbol = term_symbol
+                    result_latex = term_latex
+    question = result_latex + "="
+    answer = sympy.latex(sympy.simplify(result_symbol))
+    return question, question + answer
 
-        elif exp_type == "two>1":
-            if fraction:
-                if randint(0, 1) == 1:  # same numerator or same denominator
-                    denominator1 = randint(2, 9)
-                    denominator2 = denominator1
-                    numerator1 = randint(denominator1 + 1, denominator1 * 5)
-                    numerator2 = randint(denominator1 + 1, denominator1 * 5)
+
+def equation_one_var_simple_fraction():
+    pool = ["times", "divide"]
+    term_latex_list, term_symbol_list = gen_terms(2, 4)
+    result_latex = ""
+    result_symbol = 1
+    for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
+        operator = choice(pool)
+        if operator == "times":
+            if len(result_latex) > 0:
+                result_latex += "/times " + term_latex
+            else:
+                result_latex = term_latex
+            result_symbol = result_symbol * term_symbol
+        elif operator == "divide":
+            if len(result_latex) > 0:
+                result_latex = "/frac{%s}{%s}" % (result_latex, term_latex)
+                result_symbol = result_symbol / term_symbol
+            else:
+                if randint(0, 3) == 1:
+                    # in a few cases put 1 / xxxxx in the beginning
+                    result_latex = "/frac{%s}{%s}" % ("1", term_latex)
+                    result_symbol = 1 / term_symbol
                 else:
-                    while True:
-                        numerator1 = randint(1, 45)
-                        numerator2 = numerator1
-                        denominator1 = randint(2, 9)
-                        denominator2 = randint(2, 9)
-                        if denominator1 < numerator1 and denominator2 < numerator2:
-                            break
-                exp1 = Fraction(numerator1, denominator1)
-                exp2 = Fraction(numerator2, denominator2)
+                    result_symbol = term_symbol
+                    result_latex = term_latex
+    question = result_latex + "="
+    answer = sympy.latex(sympy.simplify(result_symbol))
+    return question, question + answer
+
+
+def equation_one_var_with_xishu():
+    pool = ["times", "divide"]
+    term_latex_list, term_symbol_list = gen_terms(2, 4)
+    result_latex = ""
+    result_symbol = 1
+    for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
+        operator = choice(pool)
+        xishu = randint(2, 12)
+        if xishu < 5:
+            term_latex = str(xishu) + term_latex
+            term_symbol = term_symbol * xishu
+            with_xishu = True
+        else:
+            with_xishu = False
+        if operator == "times":
+            if len(result_latex) > 0:
+                result_latex += "/times " + term_latex
             else:
-                exp1 = randint(11, 100) / 10
-                exp2 = randint(11, 100) / 10
-        elif exp_type == "positive and negative":
-            if randint(0, 1) == 1:
-                exp1 = -randint(0, 20) / 10
+                result_latex = term_latex
+            result_symbol = result_symbol * term_symbol
+        elif operator == "divide":
+            if len(result_latex) > 0:
+                if with_xishu:
+                    result_latex += "/div (" + term_latex + ") "
+                else:
+                    result_latex += "/div " + term_latex
+                result_symbol = result_symbol / term_symbol
             else:
-                exp1 = -Fraction(randint(0, 19), randint(2, 9))
-            if randint(0, 1) == 1:
-                exp2 = randint(0, 20) / 10
+                if randint(0, 3) == 1:
+                    # in a few cases put 1 / xxxxx in the beginning
+                    if with_xishu:
+                        result_latex += "1/div (" + term_latex + ") "
+                    else:
+                        result_latex += "1/div " + term_latex
+                    result_symbol = 1 / term_symbol
+                else:
+                    result_symbol = term_symbol
+                    result_latex = term_latex
+    question = result_latex + "="
+    answer = sympy.latex(sympy.simplify(result_symbol))
+    return question, question + answer
+
+
+def equation_one_var_simple():
+    pool = ["times", "divide"]
+    term_latex_list, term_symbol_list = gen_terms(2, 4)
+    result_latex = ""
+    result_symbol = 1
+    for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
+        operator = choice(pool)
+        if operator == "times":
+            if len(result_latex) > 0:
+                result_latex += "/times " + term_latex
             else:
-                exp2 = Fraction(randint(0, 19), randint(2, 9))
-            if randint(0, 1) == 1:
-                exp1, exp2 = exp2, exp1
-        elif exp_type == ">1 and <1":
-            if randint(0, 1) == 1:
-                exp1 = randint(11, 100) / 10
+                result_latex = term_latex
+            result_symbol = result_symbol * term_symbol
+        elif operator == "divide":
+            if len(result_latex) > 0:
+                result_latex += "/div " + term_latex
+                result_symbol = result_symbol / term_symbol
             else:
-                denominator = randint(2, 9)
-                numerator = randint(denominator + 1, denominator * 5)
-                exp1 = Fraction(numerator, denominator)
-            if randint(0, 1) == 1:
-                exp2 = randint(1, 10) / 10
+                if randint(0, 3) == 1:
+                    # in a few cases put 1 / xxxxx in the beginning
+                    result_latex = "1/div " + term_latex
+                    result_symbol = 1 / term_symbol
+                else:
+                    result_symbol = term_symbol
+                    result_latex = term_latex
+    question = result_latex + "="
+    answer = sympy.latex(sympy.simplify(result_symbol))
+    return question, question + answer
+
+
+def gen_terms(minimun=2, maximun=5):
+    num_of_terms = randint(minimun, maximun)
+    a, _, symbol_a, _ = get_two_symbols()
+    term_latex_list = [a] * num_of_terms
+    term_symbol_list = [symbol_a] * num_of_terms
+    for i in range(num_of_terms):
+        exp = get_exponent()
+        if exp == int(exp):  # if it's an integer
+            if exp != 1:
+                term_latex_list[i] = term_latex_list[i] + "^{" + str(exp) + "}"
             else:
-                denominator = randint(2, 9)
-                numerator = randint(1, denominator - 1)
-                exp2 = Fraction(numerator, denominator)
-            if randint(0, 1) == 1:
-                exp1, exp2 = exp2, exp1
-        if exp1 != exp2:
+                term_latex_list[i] = term_latex_list[i]
+        else:
+            if randint(0, 1) == 0:  # if print as fraction
+                term_latex_list[i] = term_latex_list[i] + "^{" + str(exp) + "}"
+            else:
+                frac = Fraction(int(exp * 100), 100)
+                if randint(0, 1) == 0:  # if print as mix number
+                    term_latex_list[i] = term_latex_list[i] + \
+                        "^{" + mixed_number_simplify(frac) + "}"
+                else:
+                    term_latex_list[i] = term_latex_list[i] + \
+                        "^{" + "/frac{%s}{%s}" % (frac.numerator,
+                                                  frac.denominator) + "}"
+        term_symbol_list[i] = term_symbol_list[i]**exp
+    return term_latex_list, term_symbol_list
+
+
+def get_exponent():
+    pool = [1, 1, 1, 2, 2, 0.5, 1, 1, 1, 2, 2, 0.5, 1.5, 2.5, 0]
+    if randint(0, 3) == 0:  # possibility of negative
+        a = -1
+    else:
+        a = 1
+    return choice(pool) * a
+
+
+def get_two_symbols():
+    pool = ['a', 'b', 'r', 't']
+    while True:
+        a = choice(pool)
+        b = choice(pool)
+        if a != b:
             break
-    if randint(0, 2) == 1:
-        exp1 = -exp1
-        exp2 = -exp2
-    if randint(0, 1) == 1:
-        exp1, exp2 = exp2, exp1
-    return exp1, exp2
+    symbol_a = sympy.Symbol(a)
+    symbol_b = sympy.Symbol(b)
+    return a, b, symbol_a, symbol_b
 
 
 if __name__ == "__main__":
-    for _ in range(100):
+    for _ in range(10):
         #  print(generate_two_exp())
         #  print(equation_same_exp_compare())
-        print(equation_same_base_compare())
+        #  print(equation_same_base_compare())
+        #  print(equation_one_var_simple()[1])
+        print(equation_one_var_with_xishu_fraction()[1])
+        print(equation_one_var_simple_fraction()[1])
