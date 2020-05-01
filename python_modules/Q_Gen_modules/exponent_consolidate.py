@@ -18,7 +18,7 @@ note = "All symbols in the exponent consolidation problems are positive."
 
 def equation_one_var_with_xishu_fraction():
     pool = ["times", "divide"]
-    term_latex_list, term_symbol_list = gen_terms(2, 4)
+    term_latex_list, term_symbol_list = gen_terms(2, 3)
     result_latex = ""
     result_symbol = 1
     for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
@@ -49,13 +49,13 @@ def equation_one_var_with_xishu_fraction():
                     result_symbol = term_symbol
                     result_latex = term_latex
     question = result_latex + "="
-    answer = sympy.latex(sympy.simplify(result_symbol))
+    answer = sympy.latex(sympy.simplify(result_symbol)).replace("\\", "/")
     return question, question + answer
 
 
 def equation_one_var_simple_fraction():
     pool = ["times", "divide"]
-    term_latex_list, term_symbol_list = gen_terms(2, 4)
+    term_latex_list, term_symbol_list = gen_terms(2, 3)
     result_latex = ""
     result_symbol = 1
     for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
@@ -79,7 +79,7 @@ def equation_one_var_simple_fraction():
                     result_symbol = term_symbol
                     result_latex = term_latex
     question = result_latex + "="
-    answer = sympy.latex(sympy.simplify(result_symbol))
+    answer = sympy.latex(sympy.simplify(result_symbol)).replace("\\", "/")
     return question, question + answer
 
 
@@ -122,7 +122,7 @@ def equation_one_var_with_xishu():
                     result_symbol = term_symbol
                     result_latex = term_latex
     question = result_latex + "="
-    answer = sympy.latex(sympy.simplify(result_symbol))
+    answer = sympy.latex(sympy.simplify(result_symbol)).replace("\\", "/")
     return question, question + answer
 
 
@@ -152,7 +152,7 @@ def equation_one_var_simple():
                     result_symbol = term_symbol
                     result_latex = term_latex
     question = result_latex + "="
-    answer = sympy.latex(sympy.simplify(result_symbol))
+    answer = sympy.latex(sympy.simplify(result_symbol)).replace("\\", "/")
     return question, question + answer
 
 

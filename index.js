@@ -95,10 +95,10 @@ server_io.on("connection", function(socket) {
                         done: err
                     });
                 } else {
-                    console.log("finished");
                     // console.log(results);
                     // results = fix_python_backslash_error(results);
                     results = replace_latex_for_multiple__strings(results);
+                    console.log("finished");
                     cb_function({
                         done: true,
                         problem_list: results[0],
@@ -159,7 +159,9 @@ server_io.on("connection", function(socket) {
 }); /// end of io connect
 
 function fix_python_backslash_error(input_string) {
-    var replace_table = [[String.raw`\\div`, String.raw`\div`]];
+    var replace_table = [
+        [String.raw `\\div`, String.raw `\div`]
+    ];
     for (var i = 0; i < input_string.length; i++) {
         for (var j = 0; j < replace_table.length; j++) {
             input_string[i].replace(replace_table[j][0], replace_table[j][1]);
@@ -219,19 +221,18 @@ function replace_latex(input_string, cb_function) {
         // console.log("prefix=" + prefix);
         // console.log("suffix=" + suffix);
         // console.log("latex=" + latex);
-        mjAPI.typeset(
-            {
-                math: latex.replace(/\//gi, "\\"),
-                format: "TeX", // or "inline-TeX", "MathML"
-                svg: true // or svg:true, or html:true
-            },
-            function(data) {
-                if (!data.errors) {
-                    replace_latex(suffix, function(output) {
-                        cb_function(prefix + data.svg + output);
-                    });
-                }
+        mjAPI.typeset({
+            math: latex.replace(/\//gi, "\\"),
+            format: "TeX", // or "inline-TeX", "MathML"
+            svg: true // or svg:true, or html:true
+        },
+        function(data) {
+            if (!data.errors) {
+                replace_latex(suffix, function(output) {
+                    cb_function(prefix + data.svg + output);
+                });
             }
+        }
         );
     }
 }
