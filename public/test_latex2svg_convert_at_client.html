@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!--   <title>MathJax example</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script> -->
+    <!--    <script>
+    MathJax = {
+        // your configuration here, if needed
+    };
+    </script> -->
+    <!--     <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script> -->
+    <script type="text/javascript" id="MathJax-script" async src="libs/tex-svg.js">
+    </script>
+</head>
+
+<body>
+    <p>
+        <!-- When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\] -->
+        $$\sqrt[0.5]{\frac{b^{2.5}}{b^{-2}}b^{0}b^{2}}=$$
+    </p>
+    <table class="tg" width=100%>
+        <tr>
+            <th class="tg-0lax">$$t^{1\frac{1}{2}}\times t=t^{2.5}$$</th>
+            <th class="tg-0lax">$$a^{2}\sqrt[0.5]{a}\times$$</th>
+            <th class="tg-0lax">$$\sqrt{\frac{1}{a}\div a^{0.5}}=$$</th>
+            <th class="tg-0lax">$$\sqrt{b^{0}\div (b^{0}b^{\frac{1}{2}}b^{-2})^{4}}=$$</th>
+            <th class="tg-0lax">$$\sqrt[0.5]{\frac{b^{2.5}}{b^{-2}}b^{0}b^{2}}=$$</th>
+        </tr>
+    </table>
+    <div id="test"></div>
+    <button id="bbb">test</button>
+    <script>
+    var d = document.getElementById('test'),
+        b = document.getElementById('bbb');
+    b.addEventListener("click", function() {
+        d.innerHTML += String.raw `$$a^{2}\sqrt[0.5]{a}\times$$`
+        // MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        MathJax.typeset()
+    });
+    </script>
+</body>
+
+</html>

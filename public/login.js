@@ -10,7 +10,9 @@ window.addEventListener("load", function() {
     socket.emit("GetListHTML", function(result) {
         select_list.innerHTML = result["selection_list"];
         abstrat_list.innerHTML = result["abstract_list"];
-        abstrat_list_HTML_all_hidden = result["abstract_list"];
+        abstrat_list_HTML_all_hidden = result["abstract_list"]; //.replace(/\//gi, "\\");
+        console.log("load mathjax");
+
     });
 
     // Original selection list control code
@@ -35,14 +37,15 @@ window.addEventListener("load", function() {
         }
     });
     ex1ImportantListbox.setHandleFocusChange(function(event, items) {
-        console.log("Focus change event", event, "    items", items);
-        console.log("event's id", event.id); // event is the li element focused newly
+        // console.log("Focus change event", event, "    items", items);
+        // console.log("event's id", event.id); // event is the li element focused newly
         var abstrat_list = document.getElementById("ss_live_region");
         abstrat_list.innerHTML = abstrat_list_HTML_all_hidden;
         var abstrat_to_show = document.getElementById(event.id + "_abs");
         abstrat_to_show.classList.remove("hidden");
         var abstrat_to_show = document.getElementById(event.id + "_abs_table");
         abstrat_to_show.classList.remove("hidden");
+        MathJax.typeset();
     });
     ex1UnimportantListbox.setupMove(
         document.getElementById("ex1-add"),

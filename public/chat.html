@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>Math Gen Ouput</title>
     <!-- <script src="/libs/socket.io.js"></script> -->
     <!-- <link href="chatroom.css" rel="stylesheet" /> -->
     <style type="text/css">
-      @page {
+    @page {
         size: auto;
         /* auto is the initial value */
 
         /* this affects the margin in the printer settings */
         margin: 15mm 5mm 5mm 5mm;
-      }
+    }
 
-      body {
+    body {
         /* this affects the margin on the content before sending to printer */
         margin: 0px;
-      }
+    }
 
-      @media print {
+    @media print {
+
         .no-print,
         .no-print * {
-          display: none !important;
+            display: none !important;
         }
-      }
+    }
 
-      table {
+    table {
         table-layout: auto;
         border-collapse: collapse;
         page-break-inside: avoid;
         width: 100%;
-      }
+    }
 
-      table td {
+    table td {
         border: 0px solid #ccc;
-      }
+    }
 
-      table .absorbing-column {
+    table .absorbing-column {
         width: 100%;
-      }
+    }
 
-      /*table { page-break-inside:auto }*/
-      tr {
+    /*table { page-break-inside:auto }*/
+    tr {
         page-break-inside: avoid;
         /*page-break-after: auto*/
-      }
+    }
     </style>
     <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
     <!-- <script src="/libs/polyfill.min.js?features=es6"></script>
@@ -71,14 +73,18 @@
         <p>\[1\times2\]</p>
         </body>
         </html> -->
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="output"></div>
     <button id="swap" class="no-print">Hide / Unhide Answers</button>
     <!-- <script src="/client.js"></script> -->
+    <script src="libs/MathJax_config.js" type="text/javascript"></script>
+    <script type="text/javascript" id="MathJax-script" async src="libs/tex-svg.js">
+    </script>
     <script src="/libs/p5.js"></script>
     <!-- <script src="gdu_keygen.js"></script> -->
     <script src="/client.p5.js"></script>
-  </body>
+</body>
+
 </html>

@@ -43,9 +43,10 @@ server_io.on("connection", function(socket) {
                         done: err
                     });
                 } else {
-                    console.log("get html finished");
+                    console.log("get html list finished");
                     results = replace_latex_for_multiple__strings(results);
-                    console.log(results);
+                    // console.log("Converted html list Latex to svg.");
+                    // console.log(results);
                     cb_function({
                         done: true,
                         selection_list: results[0],
@@ -97,8 +98,9 @@ server_io.on("connection", function(socket) {
                 } else {
                     // console.log(results);
                     // results = fix_python_backslash_error(results);
+                    console.log("Get problem HTML from python code.");
                     results = replace_latex_for_multiple__strings(results);
-                    console.log("finished");
+                    // console.log("Converted latex to svg finished");
                     cb_function({
                         done: true,
                         problem_list: results[0],
@@ -158,20 +160,20 @@ server_io.on("connection", function(socket) {
     });
 }); /// end of io connect
 
-function fix_python_backslash_error(input_string) {
-    var replace_table = [
-        [String.raw `\\div`, String.raw `\div`]
-    ];
-    for (var i = 0; i < input_string.length; i++) {
-        for (var j = 0; j < replace_table.length; j++) {
-            input_string[i].replace(replace_table[j][0], replace_table[j][1]);
-        }
-    }
-    return input_string;
-}
+// function fix_python_backslash_error(input_string) {
+//     var replace_table = [
+//         [String.raw `\\div`, String.raw `\div`]
+//     ];
+//     for (var i = 0; i < input_string.length; i++) {
+//         for (var j = 0; j < replace_table.length; j++) {
+//             input_string[i].replace(replace_table[j][0], replace_table[j][1]);
+//         }
+//     }
+//     return input_string;
+// }
 
-////////////////////////////////////////////////////////////////
-// change latex in multiple strings
+// ////////////////////////////////////////////////////////////////
+// // change latex in multiple strings
 function replace_latex_for_multiple__strings(input_strings) {
     var number_of_strings = input_strings.length;
     var number_of_done = Array(number_of_strings).fill(0);
@@ -181,6 +183,9 @@ function replace_latex_for_multiple__strings(input_strings) {
             results[i] = result;
             number_of_done[i] = 1;
         });
+        // results[i] = input_strings[i].replace(/\//gi, "\\");
+        // results[i] = results[i].replace("<latex>", "$$");
+        // results[i] = results[i].replace("</latex>", "$$");
     }
     while (number_of_done.reduce((a, b) => a + b, 0) < number_of_strings) {
         var i = 1;
@@ -188,22 +193,16 @@ function replace_latex_for_multiple__strings(input_strings) {
     }
     return results;
 }
-////////////////////////////////////////////////////////////////
-// Using MathJax to convert TeX into svg
-
-var mjAPI = require("mathjax-node");
-mjAPI.config({
-    MathJax: {
-        // traditional MathJax configuration
-    }
-});
-mjAPI.start();
+// ////////////////////////////////////////////////////////////////
+// // Using MathJax to convert TeX into svg
+// // Load MathJax 3 refer to https://github.com/mathjax/MathJax
 
 function replace_latex(input_string, cb_function) {
     var latex_start_index = input_string.indexOf("<latex>");
     // console.log("latex_start_index", latex_start_index);
     if (latex_start_index == -1) {
         cb_function(input_string);
+        // return input_string;
     } else {
         var prefix = input_string.substr(0, latex_start_index);
         var latex_end_index = input_string.indexOf("</latex>");
@@ -221,21 +220,61 @@ function replace_latex(input_string, cb_function) {
         // console.log("prefix=" + prefix);
         // console.log("suffix=" + suffix);
         // console.log("latex=" + latex);
-        mjAPI.typeset({
-            math: latex.replace(/\//gi, "\\"),
-            format: "TeX", // or "inline-TeX", "MathML"
-            svg: true // or svg:true, or html:true
-        },
-        function(data) {
-            if (!data.errors) {
-                replace_latex(suffix, function(output) {
-                    cb_function(prefix + data.svg + output);
-                });
-            }
-        }
-        );
+        // console.log("Start to convert latex", latex.replace(/\//gi, "\\"));
+        var svg_html = "$$" + latex.replace(/\//gi, "\\") + "$$";
+        replace_latex(suffix, function(output) {
+            cb_function(prefix + svg_html + output);
+        });
     }
 }
+////// Use old version of mathjax node 2.1.1 
+// var mjAPI = require("mathjax-node");
+// mjAPI.config({
+//     MathJax: {
+//         // traditional MathJax configuration
+//     }
+// });
+// mjAPI.start();
+
+// function replace_latex(input_string, cb_function) {
+//     var latex_start_index = input_string.indexOf("<latex>");
+//     // console.log("latex_start_index", latex_start_index);
+//     if (latex_start_index == -1) {
+//         cb_function(input_string);
+//     } else {
+//         var prefix = input_string.substr(0, latex_start_index);
+//         var latex_end_index = input_string.indexOf("</latex>");
+//         var latex_length = latex_end_index - latex_start_index;
+//         var suffix = input_string.substr(
+//             latex_end_index + 8,
+//             input_string.length - (latex_end_index + 8)
+//         );
+//         var latex = input_string.substr(
+//             latex_start_index + 7,
+//             latex_end_index - (latex_start_index + 7)
+//         );
+//         // console.log("latex_end_index", latex_end_index);
+//         // console.log("latex_length", latex_length);
+//         // console.log("prefix=" + prefix);
+//         // console.log("suffix=" + suffix);
+//         // console.log("latex=" + latex);
+//         console.log("Start to convert latex", latex.replace(/\//gi, "\\"));
+//         mjAPI.typeset({
+//             math: latex.replace(/\//gi, "\\"),
+//             format: "TeX", // or "inline-TeX", "MathML"
+//             svg: true // or svg:true, or html:true
+//         },
+//         function(data) {
+//             if (!data.errors) {
+//                 console.log("Done convert latex", latex);
+//                 replace_latex(suffix, function(output) {
+//                     cb_function(prefix + data.svg + output);
+//                 });
+//             } else { console.log(data.errors); }
+//         }
+//         );
+//     }
+// }
 
 // function parameters_to_string(parameter_list, max_list) {
 //     // parameters in a list of positive integers

@@ -19,7 +19,7 @@ list_name = "Exponent consolidate I"
 
 def equation_one_var_with_xishu_fraction():
     pool = ["times", "divide"]
-    term_latex_list, term_symbol_list = gen_terms(2, 3)
+    term_latex_list, term_symbol_list = gen_terms(3, 4)
     result_latex = ""
     result_symbol = 1
     for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
@@ -39,12 +39,12 @@ def equation_one_var_with_xishu_fraction():
             result_symbol = result_symbol * term_symbol
         elif operator == "divide":
             if len(result_latex) > 0:
-                result_latex = "/frac{%s}{%s}" % (result_latex, term_latex)
+                result_latex = "/dfrac{%s}{%s}" % (result_latex, term_latex)
                 result_symbol = result_symbol / term_symbol
             else:
                 if randint(0, 3) == 1:
                     # in a few cases put 1 / xxxxx in the beginning
-                    result_latex = "/frac{%s}{%s}" % ("1", term_latex)
+                    result_latex = "/dfrac{%s}{%s}" % ("1", term_latex)
                     result_symbol = 1 / term_symbol
                 else:
                     result_symbol = term_symbol
@@ -56,7 +56,7 @@ def equation_one_var_with_xishu_fraction():
 
 def equation_one_var_simple_fraction():
     pool = ["times", "divide"]
-    term_latex_list, term_symbol_list = gen_terms(2, 3)
+    term_latex_list, term_symbol_list = gen_terms(3, 4)
     result_latex = ""
     result_symbol = 1
     for (term_latex, term_symbol) in zip(term_latex_list, term_symbol_list):
@@ -69,12 +69,12 @@ def equation_one_var_simple_fraction():
             result_symbol = result_symbol * term_symbol
         elif operator == "divide":
             if len(result_latex) > 0:
-                result_latex = "/frac{%s}{%s}" % (result_latex, term_latex)
+                result_latex = "/dfrac{%s}{%s}" % (result_latex, term_latex)
                 result_symbol = result_symbol / term_symbol
             else:
                 if randint(0, 3) == 1:
                     # in a few cases put 1 / xxxxx in the beginning
-                    result_latex = "/frac{%s}{%s}" % ("1", term_latex)
+                    result_latex = "/dfrac{%s}{%s}" % ("1", term_latex)
                     result_symbol = 1 / term_symbol
                 else:
                     result_symbol = term_symbol

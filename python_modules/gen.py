@@ -54,7 +54,12 @@ def question_gen(
                                             # .replace(r"\\\\", r"\\")
                                             new_answer
                                             ))
-
+        # problem_list.append(("[%d] " % i) +
+        #                     ("$$%s$$" % new_problem))
+        # answer_list.append(("[%d] " % i) + ("$$%s$$" %
+        #                                     # .replace(r"\\\\", r"\\")
+        #                                     new_answer
+        #                                     ))
     return problem_list, answer_list, page_key, page_note
 
 

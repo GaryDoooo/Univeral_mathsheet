@@ -113,12 +113,13 @@ def combine_terms_into_one(term_latex_list, term_symbol_list):
                 result_symbol = result_symbol * term_symbol
             elif operator == "divide":
                 if len(result_latex) > 0:
-                    result_latex = "/frac{%s}{%s}" % (result_latex, term_latex)
+                    result_latex = "/dfrac{%s}{%s}" % (
+                        result_latex, term_latex)
                     result_symbol = result_symbol / term_symbol
                 else:
                     if randint(0, 3) == 1:
                         # in a few cases put 1 / xxxxx in the beginning
-                        result_latex = "/frac{%s}{%s}" % ("1", term_latex)
+                        result_latex = "/dfrac{%s}{%s}" % ("1", term_latex)
                         result_symbol = 1 / term_symbol
                     else:
                         result_symbol = term_symbol
