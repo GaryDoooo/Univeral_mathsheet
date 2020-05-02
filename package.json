@@ -25,9 +25,7 @@
     "python-shell": "^1.0.7",
     "socket.io": "^2.2.0"
   },
-  "devDependencies": {
-    "nodemon": "^1.18.10"
-  },
+  "devDependencies": {},
   "cloud-repo-tools": {
     "requiresKeyFile": true,
     "requiresProjectId": true

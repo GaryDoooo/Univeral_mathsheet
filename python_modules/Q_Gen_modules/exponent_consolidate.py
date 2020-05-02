@@ -12,8 +12,8 @@ function_list = [
     #  "equation_one_var_simple_fraction",
     "equation_one_var_with_xishu"
 ]
-abstract = "Consolidate the expression into one single exponent. It includes different exponent caculations."
-list_name = "Exponent consolidate I"
+abstract = "Simplify the expression into one single exponent. It includes different exponent caculations."
+list_name = "Exponent simplify I"
 #  note = "All symbols in the exponent consolidation problems are positive."
 
 

@@ -17,9 +17,9 @@ function_list = [
     "equation_two_var_simple_fraction",
     "equation_one_var_with_exponent_root"
 ]
-abstract = "Consolidate the expression into one single exponent for one variable. It includes different exponent caculations, and may include two variables."
-list_name = "Exponent consolidate II"
-note = "All symbols in the exponent consolidation problems are positive."
+abstract = "Simplify the expression into one single exponent for one variable. It includes different exponent caculations, and may include two variables."
+list_name = "Exponent simplify II"
+note = "All symbols in the exponent calculation problems are positive."
 
 
 def equation_one_var_simple_fraction_withandwithout_xishu():
