@@ -14,7 +14,8 @@ global_module_list = [
     "exponent_compare",
     "two_symbol_expand1",
     "two_symbol_expand2",
-    "exponent_consolidate"
+    "exponent_consolidate",
+    "exponent_consolidate2"
 ]
 # the first max is the 2 power of number of diffuser modules, 2147483647
 # is 32 bit integer, so far the program is good for 32 different modules.
