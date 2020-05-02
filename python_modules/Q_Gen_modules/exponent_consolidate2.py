@@ -3,16 +3,30 @@ from fractions import Fraction
 import sympy
 try:
     from Q_Gen_modules.fraction_basic import mixed_number_simplify
+    from Q_Gen_modules.exponent_consolidate import equation_one_var_simple_fraction
+    from Q_Gen_modules.exponent_consolidate import equation_one_var_with_xishu_fraction
 except BaseException:
     from fraction_basic import mixed_number_simplify
+    from exponent_consolidate import equation_one_var_simple_fraction
+    from exponent_consolidate import equation_one_var_with_xishu_fraction
 
 function_list = [
+    #  "equation_one_var_with_xishu_fraction",
+    #  "equation_one_var_simple_fraction",
+    "equation_one_var_simple_fraction_withandwithout_xishu",
     "equation_two_var_simple_fraction",
     "equation_one_var_with_exponent_root"
 ]
 abstract = "Consolidate the expression into one single exponent for one variable. It includes different exponent caculations, and may include two variables."
 list_name = "Exponent consolidate II"
 note = "All symbols in the exponent consolidation problems are positive."
+
+
+def equation_one_var_simple_fraction_withandwithout_xishu():
+    if randint(0, 1) == 0:
+        return equation_one_var_simple_fraction()
+    else:
+        return equation_one_var_with_xishu_fraction()
 
 
 def equation_one_var_with_exponent_root():
@@ -90,7 +104,10 @@ def combine_terms_into_one(term_latex_list, term_symbol_list):
         if randint(0, 1) == 0:  # if print as fraction for dividens
             if operator == "times":
                 if len(result_latex) > 0:
-                    result_latex += "/times " + term_latex
+                    if randint(0, 1) == 0:
+                        result_latex += "/times " + term_latex
+                    else:
+                        result_latex += term_latex
                 else:
                     result_latex = term_latex
                 result_symbol = result_symbol * term_symbol
@@ -109,7 +126,10 @@ def combine_terms_into_one(term_latex_list, term_symbol_list):
         else:
             if operator == "times":
                 if len(result_latex) > 0:
-                    result_latex += "/times " + term_latex
+                    if randint(0, 1) == 0:
+                        result_latex += "/times " + term_latex
+                    else:
+                        result_latex += term_latex
                 else:
                     result_latex = term_latex
                 result_symbol = result_symbol * term_symbol
@@ -215,5 +235,6 @@ if __name__ == "__main__":
         #  print(equation_one_var_simple()[1])
         #  print(equation_one_var_with_xishu_fraction()[1])
         #  print(equation_one_var_simple_fraction()[1])
-        print(equation_one_var_with_exponent_root()[1])
-        print(equation_two_var_simple_fraction()[1])
+        #  print(equation_one_var_with_exponent_root()[1])
+        #  print(equation_two_var_simple_fraction()[1])
+        print(equation_one_var_simple_fraction_withandwithout_xishu()[1])

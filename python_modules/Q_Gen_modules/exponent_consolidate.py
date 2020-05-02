@@ -8,12 +8,13 @@ except BaseException:
 
 function_list = [
     "equation_one_var_simple",
-    "equation_one_var_with_xishu_fraction",
-    "equation_one_var_with_xishu",
-    "equation_one_var_simple_fraction"]
+    #  "equation_one_var_with_xishu_fraction",
+    #  "equation_one_var_simple_fraction",
+    "equation_one_var_with_xishu"
+]
 abstract = "Consolidate the expression into one single exponent. It includes different exponent caculations."
 list_name = "Exponent consolidate I"
-note = "All symbols in the exponent consolidation problems are positive."
+#  note = "All symbols in the exponent consolidation problems are positive."
 
 
 def equation_one_var_with_xishu_fraction():
