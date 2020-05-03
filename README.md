@@ -4,4 +4,7 @@ A web based application using LATEX, Python and JavaScript. My previous mathshee
 
 The goal is to build a universal front end and server end. To expand different type of math problems will just need build more standard modules.
 
-Tab key is tabnine is tabnine using multi
+To deploy the app with Heroku with both node.js and Python requires including python in the buildpack,
+
+heroku buildpacks:add --index 1 heroku/python
+
