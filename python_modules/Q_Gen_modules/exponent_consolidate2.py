@@ -159,8 +159,13 @@ def gen_terms(minimun=2, maximun=5):
     a, b, symbol_a, symbol_b = get_two_symbols()
     term_latex_list = [a, b] * num_of_terms
     term_symbol_list = [symbol_a, symbol_b] * num_of_terms
-    shuffle(term_symbol_list)
-    shuffle(term_latex_list)
+    # switch sequence of the two variables, the original two shuffles have bugs
+    temp_index_list = list(range(len(term_symbol_list)))
+    shuffle(temp_index_list)
+    term_symbol_list = [term_symbol_list[_] for _ in temp_index_list]
+    term_latex_list = [term_latex_list[_] for _ in temp_index_list]
+    #  shuffle(term_symbol_list)
+    #  shuffle(term_latex_list)
     for i in range(num_of_terms):
         exp = get_exponent()
         if exp == int(exp):  # if it's an integer
