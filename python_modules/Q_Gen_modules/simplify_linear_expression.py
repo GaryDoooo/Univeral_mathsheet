@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 import sympy
 
 function_list = [
@@ -10,11 +10,6 @@ function_list = [
 abstract = "Expand symbolic expressions into polynomials. The calculation includes negative and decimal exponents."
 list_name = "Symbolic expansion II"
 note = "All the symbolic variables are positive, write result in fraction form if needed."
-
-
-def choice(input_list):
-    #  print(input_list)
-    return input_list[randint(0, len(input_list) - 1)]
 
 
 def equation_two_bracket_square():

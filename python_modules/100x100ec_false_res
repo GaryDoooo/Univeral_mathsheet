@@ -1,0 +1,17 @@
+main test
+From File: 2613501134
+
+2613501134
+ 	 seed 2613501134 tested same: False Q1 /dfrac{4r^{/frac{1}{2}}/times 4r/times 3r^{2}}{2r}= Q2 4r^{/frac{1}{2}}/times 4r/times r^{2}/times r=
+From File: 3506052189
+
+3506052189
+ 	 seed 3506052189 tested same: False Q1 /dfrac{/dfrac{2t^{0.5}}{t^{2.5}}}{2t^{-2}}/times t= Q2 /dfrac{/dfrac{/dfrac{2t^{0.5}}{t^{2.5}}}{t^{-2}}}{2t}=
+From File: 4215654567
+
+4215654567
+ 	 seed 4215654567 tested same: False Q1 /dfrac{/dfrac{t^{0.5}/times t^{2.5}}{t^{/frac{1}{2}}}}{t^{-1}}= Q2 /dfrac{t^{0.5}/times t^{2.5}}{t^{/frac{1}{2}}}/times t^{-1}=
+From File: 2779460742
+
+2779460742
+ 	 seed 2779460742 tested same: False Q1 /dfrac{/dfrac{b}{4b^{0}}}{3b^{2}}/times 3b^{/frac{3}{2}}= Q2 /dfrac{/dfrac{/dfrac{b}{4b^{0}}}{3b^{2}}}{3b^{/frac{3}{2}}}=

@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import randint
 from fractions import Fraction
 import sympy
 try:
@@ -15,6 +15,11 @@ function_list = [
 abstract = "Simplify the expression into one single exponent. It includes different exponent caculations."
 list_name = "Exponent simplify I"
 #  note = "All symbols in the exponent consolidation problems are positive."
+
+
+def choice(input_list):
+    #  print(input_list)
+    return input_list[randint(0, len(input_list) - 1)]
 
 
 def equation_one_var_with_xishu_fraction():

@@ -43,11 +43,23 @@ def question_gen(
         seed.append(random.randint(0, 4294967295))
     for i in range(1, problem_num + 1):
         # a string of name of the question type
+        ####################################################
+        # while loop to two identical question generated
+        # It's somehow filter out the random generation errors
         random.seed(seed[i - 1])
         question_type = random.choice(question_type_list)
-
-        new_problem, new_answer = equations.generate_a_question(question_type)
-
+        new_problem_previous, new_answer_previous = equations.generate_a_question(
+            question_type)
+        while True:
+            random.seed(seed[i - 1])
+            question_type = random.choice(question_type_list)
+            new_problem, new_answer = equations.generate_a_question(
+                question_type)
+            if new_problem == new_problem_previous and new_answer == new_answer_previous:
+                break
+            else:
+                new_problem_previous, new_answer_previous = new_problem, new_answer
+        ###################################################
         problem_list.append(("[%d] " % i) +
                             ("<latex>%s</latex>" % new_problem))
         answer_list.append(("[%d] " % i) + ("<latex>%s</latex>" %
