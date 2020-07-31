@@ -75,7 +75,31 @@ def question_gen(
     return problem_list, answer_list, page_key, page_note
 
 
+def get_random_by_seed(seed=1, index=0, total=100):
+    random.seed(seed)
+    seeds = []
+    for _ in range(total):
+        seeds.append(random.randint(0, 4294967295))
+    return seeds[index]
+
+
+def test_gen_by_seed(seed=0, question_type_list=['chengfahebing']):
+    equations = equation()
+    random.seed(seed)
+    question_type = random.choice(question_type_list)
+    new_problem_previous, new_answer_previous = equations.generate_a_question(
+        question_type)
+    return new_problem_previous, new_answer_previous
+
+
 if __name__ == '__main__':
     print("main test")
-    print(question_gen(
-        question_type_list_string="chengfahebing,chufahebing", problem_num=10))
+    #  print(question_gen(
+    #  question_type_list_string="chengfahebing,chufahebing", problem_num=10))
+    print(get_random_by_seed(16558, 34))
+    print(
+        test_gen_by_seed(
+            get_random_by_seed(
+                16558,
+                34),
+            ['linear_eq_1unknown']))

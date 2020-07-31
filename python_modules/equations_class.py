@@ -151,5 +151,5 @@ if __name__ == "__main__":
     # print(a.add_absract_samples())
     #  print(a.li_html())
     print(a.encode_key(["chengfahebing", "chufahebing_w_frac"], 44))
-    print(a.decode_key("eydw"))
+    print(a.decode_key("13ypim"))
     print(a.get_page_note(["chengfahebing", "exponent_compare"]))

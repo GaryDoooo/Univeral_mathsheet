@@ -50,8 +50,11 @@ def linear_eq_1unknown(depth=2):
     equation_type = choice(type_pool)
     while True:
         if equation_type == "xt1/xt2=c":
-            equation1, equation_str1, _ = gen_xterm(randint(0, depth))
-            equation2, equation_str2, _ = gen_xterm(randint(0, depth))
+            while True:
+                equation1, equation_str1, _ = gen_xterm(randint(0, depth))
+                equation2, equation_str2, _ = gen_xterm(randint(0, depth))
+                if equation1 * equation2 != 0:
+                    break
             constant, constant_str = gen_constant()
             equation = sympy.Eq(equation1, equation2 * constant)
             question = "/dfrac{%s}{%s} = %s" % (
@@ -74,7 +77,10 @@ def linear_eq_1unknown(depth=2):
                 question = "%s = %s - %s" % (
                     equation_str1, equation_str2, constant_str[1:])
         elif equation_type == "c/xt1=c":
-            equation1, equation_str1, _ = gen_xterm(randint(1, depth + 1))
+            while True:
+                equation1, equation_str1, _ = gen_xterm(randint(1, depth + 1))
+                if equation1 != 0:
+                    break
             constant, constant_str = gen_constant()
             constant2, constant_str2 = gen_constant()
             equation = sympy.Eq(equation1 * constant, constant2)
@@ -89,6 +95,7 @@ def linear_eq_1unknown(depth=2):
         except Exception:
             pass
 
+    #  print(equation)
     solution = make_mix_number(solution)
     question = random_flip(question)
     return question, "/tiny{%s}../normalsize{x=%s}" % (question, solution)
